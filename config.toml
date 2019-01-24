@@ -78,3 +78,4 @@ hasCJKLanguage = false
 #      name = "All Posts"
 #      url = "/allposts/"
 #      weight = 5
+googleAnalytics = "UA-47631412-1"
