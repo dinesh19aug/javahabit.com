@@ -5,6 +5,13 @@ date: 2019-01-22T21:41:47-05:00
 author: Dinesh
 type: post
 url: /2019/01/22/part-2-ml-simplelinear-regression/
+keywords:
+  - Machine Learning
+  - javahabit
+  - Machine learning tutorial
+  - python
+  - Data Preprocessing
+description: Machine learning tutorial on Data preprocessing
 categories:
   - Tech Notes
 ---

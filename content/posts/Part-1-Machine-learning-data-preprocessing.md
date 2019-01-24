@@ -7,6 +7,13 @@ date: 2019-01-21T00:35:54-05:00
 
 type: post
 url: /2019/01/21/part-1-ml-data-preprocessing/
+keywords:
+  - Machine Learning
+  - javahabit
+  - Machine learning tutorial
+  - python
+  - Data Preprocessing
+description: Machine learning tutorial on Data preprocessing
 categories:
   - Tech Notes
 ---
