@@ -1,3 +1,4 @@
+  {{ partial "google/analytics" . }}
 <div class="w3-right ">
 <div class="w3-bar w3-light-grey  ">
   {{ if .Site.Params.googletranslate }}
@@ -24,19 +25,19 @@
   {{- range $name, $path := .Site.Params.social }}
       {{- if $path }}
       {{- $realName := slicestr $name 2 }}
-        
+
         <a href="{{ $path | safeURL }}" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-{{ $realName }}"></i></a>
       {{- end }}
   {{- end }}
 
       </span>
-  
+
 </div>
 </div>
 <br>
   <div class="w3-content">
-  
-  <div class="w3-container w3-center w3-padding-32 w3-hide-small"> 
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
       <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta {{ if .Site.Params.glowlogo }} glow {{ end }} " style="text-shadow:1px 1px 0 #444" ><u>
       {{ with .Site.Params.logotext }}
          {{ . }}
@@ -44,7 +45,7 @@
           W3 SIMPLE
       {{ end }}
 </u></h1>
-      
+
     </div>
     <div class="w3-content w3-center">
     <div class="w3-bar w3-light-grey w3-border">
@@ -52,8 +53,8 @@
     {{ range .Site.Menus.main }}
       <a href="{{ .URL |  relURL }}" class="w3-bar-item w3-button w3-hide-small">{{ .Name }}</a>
     {{ end }}
-   
-    
+
+
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
   </div>
 
@@ -61,7 +62,7 @@
   {{ range .Site.Menus.main }}
       <a href="{{ .URL | relURL }}" class="w3-bar-item w3-button">{{ .Name }}</a>
       {{ end }}
-  
+
 </div>
 </div>
 </div>
@@ -70,7 +71,7 @@ function displaymenu() {
     var x = document.getElementById("mobilemenu");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
 }
@@ -93,18 +94,17 @@ function displaymenu() {
     var x = document.getElementById("searchOverlay");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
-      
+
   }
 
- 
+
   </script>
 
-  
+
 {{ end }}
 
-    
+
     <hr class="headfoot">
-   
