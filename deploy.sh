@@ -3,7 +3,7 @@
 echo -e "\033[0;32mDeploying updates to GitHub...\033[0m"
 rm -rf public
 # Build the project.
-hugo #-t dream # if using a theme, replace with `hugo -t <YOURTHEME>`
+hugo -t hugo-w3-simple #-t dream # if using a theme, replace with `hugo -t <YOURTHEME>`
 
 # Go To Public folder
 cp -fR public/* ../dinesh19aug.github.io/
