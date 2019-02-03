@@ -14,6 +14,7 @@ keywords:
 description: Machine learning tutorial on Data preprocessing
 categories:
   - Tech Notes
+  - Machine learning
 ---
 In the [previous post](http://javahabit.com/2019/01/21/part-1-ml-data-preprocessing/) we learned about data pre-processing. In this post we will review the simplest algorithm - Simple Linear Regression.
 

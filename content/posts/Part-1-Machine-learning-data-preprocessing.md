@@ -16,6 +16,7 @@ keywords:
 description: Machine learning tutorial on Data preprocessing
 categories:
   - Tech Notes
+  - Machine learning
 ---
 This is the first of many series on machine learning.
 ### Get the Dataset

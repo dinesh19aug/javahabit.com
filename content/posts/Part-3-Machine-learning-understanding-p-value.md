@@ -16,6 +16,7 @@ keywords:
 description: Machine learning tutorial on Data preprocessing
 categories:
   - Tech Notes
+  - Machine learning
 ---
 In the [previous post](http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/), we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.
 
@@ -94,4 +95,4 @@ There are a number of ways to calulate P-value, a topic which I am not going to 
 - [Wikihow - Calculate P-Value](https://www.wikihow.com/Calculate-P-Value)
 
 
-This conclues this series on P-Value. In the [next series](http://javahabit.com) we will review Multiple linear regression and you will understand how P-Value fits in the bigger picture.
+This conclues this series on P-Value. In the [next series](http://javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/) we will review Multiple linear regression and you will understand how P-Value fits in the bigger picture.
