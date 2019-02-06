@@ -22,7 +22,7 @@ categories:
 In the [previous post](http://javahabit.com/2019/01/27/part-3-ml-understanding-p-value/), we learnt about a P-Value, a prerequisite for learning Multiple Linear Regression.
 
 **Business Problem**: In this series, we will take a look at a dataset of 50 startup companies.
-![sample-data](sample-data.PNG)
+![sample-data](/resources/img/mltr/sample-data.PNG)
 A venture capitalist has hired you as a data scientist and wants you to help him select which type of company he should invest so that he can make the most profit. You need to review spending on R&D,  Admin cost, marketing cost and location to make the decision
 
 
@@ -47,13 +47,13 @@ The equation would also be something as simple as that
 
 Take a closer look at dataset. You will notice that all the `Independent Variables`, except `State`, is numerical. The variable `State` is either **California** or **New York**. From our [first post](https://github.com/dinesh19aug/javahabit.com/blob/master/content/posts/Part-1-Machine-learning-data-preprocessing.md), you would know that this type of data is called categorical data. We should always convert categorical data into numerical data to avoid bias and find if there is collinearity between `Profit` and `State`. **Collinearity** is just a fancy way of asking - *"Is there some relation between `Profit` and `State`?*.
 When you convert a categorical data to numeric data, the new column is called **Dummy Variable**. So as we learned from our [first post](https://github.com/dinesh19aug/javahabit.com/blob/master/content/posts/Part-1-Machine-learning-data-preprocessing.md), we should convert it to a sparse matrix.
-![dummy](dummy1.PNG)
+![dummy](/resources/img/mltr/dummy1.PNG)
 
 **Question**
 > *Do you need two columns to represent **New York** and **California** states?
 The answer is **No**.
 
-![dummy2](dummy2.PNG)
+![dummy2](/resources/img/mltr/dummy2.PNG)
 
 It is easy to derive from the above screenshot that if **New York** is 1 then **California** by default would be 0 and vice-versa. So this actually works like a switch which can have only 2 states **0** or **1**.
 > Important tip: You should never use all of your dummy variables in your Regression column. They should always be **1** less than the number of values.
@@ -75,7 +75,7 @@ When you use both the values, your equation would be something
 
 If we do this then we will introduce multi-collinearity, where the algorithm will not be able to able to distinguish the effect on `Price`. This is because **D<sub>2</sub>** is always equal to **1 - D<sub>1</sub>**. The algorithm will then try to predict the effect of `D2` over `D1` and would think that there is a relation between `Independent` variable as well.
 
-![dummy3](dummy3.PNG)
+![dummy3](/resources/img/mltr/dummy3.PNG)
 
 
 
@@ -91,16 +91,16 @@ There are 5 methods to build a model
  > **All In**: All in means that you use all the variables when you know for sure that all the independent variables have a definite effect on the dependent variable. An example is that if doctors told you for sure that to live past 80 yrs of age, you should eat good food and exercise daily. In other words, you have domain expert telling you that all the variables directly affect the dependent variable.
 
  > **Backward elimination**: In backward elimination, you take all the variables and create the algorithm. Select a significance level, then consider the predictor with *Highest P-value* and if `P-Value > Significance level` then eliminate the variable from the equation, else keep it.
-![backward-elimination](backward-elimination.PNG)
+![backward-elimination](/resources/img/mltr/backward-elimination.PNG)
 
  > **Forward Selection**: In forward selection, you start with linear regression using every single variable. You will end up with `n` simple linear equation. Next, you chose the one with the lowest P-Value. This is your starting equation. **Y = m<sub>0</sub>X<sub>0</sub>**. Next, you pick one variable again and create an equation with two variables and out of `n-1` possibilities again chose the one with the lowest P-value. The process continues until we don't have any variable that is lower than our selected Significance level.
- ![fwd-selection.PNG](fwd-selection.PNG)
+ ![fwd-selection.PNG](/resources/img/mltr/fwd-selection.PNG)
 
   > **Bi-Directional elimination**: In bi-directional elimination, you chose 2 significance level. One to enter the equation and one to stay. You start with the forward selection using condition **P-Value < SL <sub>Enter</sub>** and then follow backward elimination using condition **P-value < SL<sub>stay</sub>**. You stop and declare the final equation when no new variable can enter or exit the equation.
- ![bidirection](bidirection.PNG)
+ ![bidirection](/resources/img/mltr/bidirection.PNG)
 
  > **Score Comparison**: In this model, you create all possible combination of the equation, compare the performance using say MSE(Mean Square Error) and use the one with the lowest MSE. That is an insane amount of possible equation. For Example - A model with 10 variables will have 1023 possible combination.
- ![all-possible.PNG](all-possible.PNG)
+ ![all-possible.PNG](/resources/img/mltr/all-possible.PNG)
 
  **Note for the purpose of brevity and sanity, we will be using `Backward Elimination ` model to solve this problem. Also, because this model is fastest and we will still be able to see how the step by method works.**
 
@@ -128,7 +128,7 @@ y = dataset.iloc[:, -1].values
 
 ```
 
-![dataset.PNG](dataset.PNG)
+![dataset.PNG](/resources/img/mltr/dataset.PNG)
 
 
 
@@ -172,7 +172,7 @@ X= oneHotEncoder.fit_transform(X).toarray()
 
 ```
 
-![encoding.PNG](encoding.PNG)
+![encoding.PNG](/resources/img/mltr/encoding.PNG)
 
 > **Hey, what about all the talk about keeping n-1 categorical items?**
 
@@ -219,7 +219,7 @@ To Predict we just need to call the predict function.
 y_pred = regressor.predict(X_test)
 ```
 
-![predicted-res.PNG](predicted-res.PNG)
+![predicted-res.PNG](/resources/img/mltr/predicted-res.PNG)
 
 You can see that the predicted values **`y-pred`** is pretty close to **`y_test`**. Some of the rows do have a significant difference and the numbers may look far apart but the others are pretty close. So how close are we? How confident are we that the trendline would fit closely. To answer this we need to look at our training and test score.
 
