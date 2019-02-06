@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Restful Webservice in 7 Steps using Spring boot • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Restful Webservice in 7 Steps using Spring boot"/>
+<meta name="twitter:description" content="Last week I was working on a new application which required me to build a web service to access it&#8217;s functionality. I decided to check out Spring 4 RestController.
+I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
+I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace."/>
+
+<meta property="og:title" content="Restful Webservice in 7 Steps using Spring boot" />
+<meta property="og:description" content="Last week I was working on a new application which required me to build a web service to access it&#8217;s functionality. I decided to check out Spring 4 RestController.
+I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
+I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" />
+<meta property="article:published_time" content="2015-01-26T20:59:12&#43;00:00"/>
+<meta property="article:modified_time" content="2015-01-26T20:59:12&#43;00:00"/>
+
+
+
+<link rel="canonical" href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Restful Webservice in 7 Steps using Spring boot</h1>
+
+      <div >
+        <p> 2015-01-26 
+          
+             <code> 930 words  </code>
+             <code> 5 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          <p>Last week I was working on a new application which required me to build a web service to access it&#8217;s functionality. I decided to check out Spring 4 RestController.</p>
+
+<p>I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.</p>
+
+<p>I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace.</p>
+
+<p>Prerequisites: Read Carefully</p>
+
+<ol>
+<li><p>Spring 4 requires you to use Maven 3 in fact it will force you to use Maven 3. This is very important point because it took me an hour to figure this out. If you try to use Maven 2, it will build and &#8220;might&#8221; compile but the code will complain that some of the RestController class methods are not found. This happens because by default, maven 2 will pull in Spring 2.5.x jar files.</p></li>
+
+<li><p>Requires a minimum of JDK 6.</p></li>
+</ol>
+
+<p><strong>What are we building?</strong></p>
+
+<p>We will build a service that will accept HTTP GET request at: <a href="http://localhost:9000/welcome">http://localhost:9000/welcome</a></p>
+
+<p>and respond with a JSON message:</p>
+
+<p><code>{&quot;content&quot;:&quot;Hello Dinesh&quot;}</code></p>
+
+<p><strong>Step 1</strong>: Create a maven project using command line tools or your favorite IDE.</p>
+
+<p><strong>Step 2</strong>: In the pom.xml add the following information</p>
+
+<p><strong>a) Parent:</strong></p>
+
+<p id="FFoDXdm">
+  <img class="alignnone size-full wp-image-753 " src="/placeholder.svg" data-src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6997a2d5aa.png" alt="" />
+</p>
+
+<p>b) Add spring-boot dependency</p>
+
+<p id="HbeyzUj">
+  <img class="alignnone size-full wp-image-754 " src="/placeholder.svg" data-src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6999bd1865.png" alt="" />
+</p>
+
+<p>c) Add spring-boot plugin</p>
+
+<p id="TzgpLxK">
+  <img class="alignnone size-full wp-image-755 " src="/placeholder.svg" data-src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699bb563e9.png" alt="" />
+</p>
+
+<p>d) Add spring repositories</p>
+
+<p id="dPDyzsX">
+  <img class="alignnone size-full wp-image-756 " src="/placeholder.svg" data-src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699d20f4f9.png" alt="" />
+</p>
+
+<p><strong>Why do we need Spring Boot Maven Plugin?</strong></p>
+
+<p>You might be wondering what happened to the good old maven build plugin. Well that plugin still works and will compile and build your project, but Spring-boot-maven-plugin searches for the public static void main() method to mark it as runnable class if you use the command &#8220;mvn:run&#8221;. Secondly, it comes with its own dependency resolver for the version number to match the Spring-boot-starter-web dependencies.</p>
+
+<p><strong>Step 3:</strong> Create JSON Message POJO class</p>
+
+<blockquote>
+<p>src/main/java/dinesh/Welcome.java</p>
+</blockquote>
+
+<pre class="lang:java decode:true "><code>
+package dinesh;
+public class Welcome {
+
+   private final String content;
+
+   public Greeting(String content) {
+      this.content = content;
+   }
+
+   public String getContent() {
+     return content;
+  }
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p>Note: Spring 4 Boot automatically uses Jackson JSON library to marshal instances of Welcome into JSONObjects.</p>
+
+<p><strong>Step 4:</strong> Create a resource Controller</p>
+
+<p>All Spring HTTP requests are handled by Spring controllers. For Restful services Spring 4 comes with a new annotation @RestController annotation. This will handle the requests which are posted to url <strong>/welcome</strong> by returning a new instance of Welcome class.</p>
+
+<p>src/main/java/dinesh/WelcomeController.java</p>
+
+<pre class="scroll:true lang:java decode:true"><code>
+package hello;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class WelcomeController {
+
+   private static final String template = "Hello, %s!";
+
+   @RequestMapping("/welcome")
+   public Welcome welcome(@RequestParam(value="name", defaultValue="World") String name) {
+      return new Greeting(String.format(template, name));
+   }
+}
+</code>
+</pre>
+
+<p>&nbsp;</p>
+
+<p>If you look closely, you will know why I said Maven 2 will not work. Maven 2 will pull in RequestParm class from old Springmvc jar file which does not have method defined for defaultValue(). It is going cry out loud during compilation.</p>
+
+<p>@RestController &#8211; annotation marks the class as controller where every method returns a domain object instead of a view, which is major distinction between @Controller and @RestController which is a short hand for @Controller + @ResponseBody</p>
+
+<p>The @RequestMapping annotation helps Spring to identify what method to invoke when some one accesses &#8220;/welcome&#8221; url.</p>
+
+<p>The @RequestParam binds the value of paramter &#8220;name&#8221; into the name parameter of the welcome() method. If you do not pass any value in the query string then the default value is &#8220;world&#8221; &#8211; defaultValue=&#8221;World&#8221;. If you do not add defaultValue and forget to pass a &#8220;name=xx&#8221; in the query string, you will hear a loud cracking, lots of smokes, some curses and code will complain of NP exceptions :-).</p>
+
+<p>One important thing that you notice is that we have not done anything to marshall request/response as JSONobject. The old of way of doing this would need you to use Jackson libraries and a lot of annotation to make them as JSON properties. Thanks to Spring 4, it takes of it using Jackson dependencies in the background.</p>
+
+<p><strong>Step 5:</strong> Create an executable &#8220;jar&#8221; file. yes you read it right. Although you can create a war file, for smaller project like the one I build and the one for this example, I am not going to go through those steps. you cn check the Spring documentation on this topic. Just a high level view what is required is that you get right of the boot plugin, change the packaging tag in the pom.xml to war.Here&#8217;s a good <a href="http://spring.io/blog/2014/03/07/deploying-spring-boot-applications" target="_blank">post </a></p>
+
+<blockquote>
+<p>src/main/java/dinesh/Execute.java</p>
+</blockquote>
+
+<pre><code>package dinesh;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan(basePackages = &quot;dinesh.*&quot;)
+@EnableAutoConfiguration
+public class Execute {
+
+   public static void main(String[] args) {
+     SpringApplication.run(Execute.class, args);
+   }
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p>&#8211; @ComponentScan tells the app to check for @component annotation and it makes sure that Spring finds and registers WelcomeController, because it is marked as &#8220;@RestController&#8221;.</p>
+
+<p><strong>Step 6:</strong> Build and run</p>
+
+<p><strong> Method 1 :</strong></p>
+
+<p>Run &#8216;mvn clean install&#8217; in the command line</p>
+
+<p>After the jaris built, run</p>
+
+<pre class="lang:default decode:true">java -jar target/xxx.jar</pre>
+
+<p><strong>Method 2:</strong></p>
+
+<pre class="lang:default decode:true ">Run spring-boot:run</pre>
+
+<p>&nbsp;</p>
+
+<p>Spring 4 comes with built-in Tomcat 7, so you do not need a full-blown JEE application server to deploy and run your web service. Either of the method will fire up the application on port 8080.</p>
+
+<p><strong>How do I change port number?</strong></p>
+
+<p>just run</p>
+
+<pre class="lang:default decode:true ">spring-boot:run -Dserver.port=9000</pre>
+
+<p>&nbsp;</p>
+
+<p><strong>Step 7:</strong> Test your service</p>
+
+<p>Once the service is up, visit <strong><a href="http://localhost:8080/welcome?name=your-name">http://localhost:8080/welcome?name=your-name</a></strong> and you will get back a response</p>
+
+<p>{&#8220;content&#8221;:&#8221;Hello, your-name!&#8221;}</p>
+
+<p>&nbsp;</p>
+
+<p>~Ciao</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	      <a  href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="w3-btn w3-text-indigo w3-hover-green">
+	          &#10094; Install Or Manage multiple versions of Java on OS X
+	      </a>
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2014/10/17/quick-tutorial-saaj-api/">
+	       A quick tutorial on SAAJ API &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>

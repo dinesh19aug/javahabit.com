@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>13 Most Common Java Keytool Keystore Commands • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="13 Most Common Java Keytool Keystore Commands"/>
+<meta name="twitter:description" content="I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and SO and ended my spending 2 &#8211; 3 hours reading about keystores and commonly used commands."/>
+
+<meta property="og:title" content="13 Most Common Java Keytool Keystore Commands" />
+<meta property="og:description" content="I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and SO and ended my spending 2 &#8211; 3 hours reading about keystores and commonly used commands." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2014/03/16/13-common-java-keytool-keystore-commands/" />
+<meta property="article:published_time" content="2014-03-16T04:41:03&#43;00:00"/>
+<meta property="article:modified_time" content="2014-03-16T04:41:03&#43;00:00"/>
+
+
+
+<link rel="canonical" href="/2014/03/16/13-common-java-keytool-keystore-commands/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#here-is-a-list-of-13-most-common-commands"><strong>Here is a list of 13 most common commands</strong></a>
+<ul>
+<li><a href="#span-style-color-339966-strong-creating-and-importing-commands-strong-span"><span style="color: #339966;"><strong>CREATING AND IMPORTING COMMANDS</strong></span></a></li>
+<li><a href="#span-style-color-339966-strong-checking-commands-strong-span"><span style="color: #339966;"><strong>CHECKING COMMANDS</strong></span></a></li>
+<li><a href="#span-style-color-339966-edit-import-commands-span"><strong><span style="color: #339966;">EDIT/IMPORT COMMANDS</span></strong></a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>13 Most Common Java Keytool Keystore Commands</h1>
+
+      <div >
+        <p> 2014-03-16 
+          
+             <code> 625 words  </code>
+             <code> 3 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+
+<p>I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and <a title="SO" href="http://stackoverflow.com" target="_blank">SO</a> and ended my spending 2 &#8211; 3 hours reading about keystores and commonly used commands.</p>
+
+<p>To give you a quick run here what I was doing. I had to use a third party wsdl to create a client. I tried to use Maven jaxws plugin to generate the client. I downloaded the wsdl to my local machine and was able to successfully create a client. For production I wanted to generate the client using the current wsdl so decided to generate the client using the wsdl url of the third-party website but ran into keystore issue. I had to download their certificate and add it to my CACERT.</p>
+
+<p>The whole charade led me to compile this post. Before I begin here is a quick run through Keystore</p>
+
+<p><strong>Why Do I need a keystore?</strong></p>
+
+<p><em>By using a public/private key mechanism. This provides a layer of security that prevents, among other things, remote attackers from pushing malicious updates to your application  (all updates must be signed with the same key)</em></p>
+
+<p><strong>What is a Java Keytool?</strong></p>
+
+<p><em>It is a key and certificate management utility. It <strong>allows users to manage their own public/private key pairs and certificates</strong>. It also allows users to cache certificates. Java Keytool stores the keys and certificates in keystore. It protects private keys with a password. A Keytool keystore has the private key and any certificates necessary to complete a chain of trust and set up the trustworthiness of the primary certificate.</em></p>
+
+<p><em>Each certificate in a Java keystore is associated with a unique alias. When creating a Java keystore you will first create the .jks file that will initially only contain the private key. You will then generate a CSR and have a certificate generated from it. Then you will import the certificate to the keystore including any root certificates. </em></p>
+
+<h4 id="here-is-a-list-of-13-most-common-commands"><strong>Here is a list of 13 most common commands</strong></h4>
+
+<h5 id="span-style-color-339966-strong-creating-and-importing-commands-strong-span"><span style="color: #339966;"><strong>CREATING AND IMPORTING COMMANDS</strong></span></h5>
+
+<p><strong>1. Create a Java Keystore and value pair</strong></p>
+
+<blockquote>
+<p>keytool -genkey -alias <span style="text-decoration: underline;">yourDomainName</span> -keyalg RSA -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystoreName.jks </span></p>
+</blockquote>
+
+<p><strong>2. Creating a signing request (CSR) for an existing keystore</strong></p>
+
+<blockquote>
+<p>keytool -certreq -alias <span style="text-decoration: underline;">yourDomainName</span> -keystore <span style="text-decoration: underline;">keystore.jks</span> -file <span style="text-decoration: underline;">yourDomainName</span><span style="text-decoration: underline;">.csr</span></p>
+</blockquote>
+
+<p><strong>3. Importing a signed primary certificate to an existing  keystore</strong>**</p>
+
+<p>**</p>
+
+<blockquote>
+<p>keytool -import -trustcacerts -alias <span style="text-decoration: underline;">yourDomainName</span> -file <span style="text-decoration: underline;">yourDomainName</span>.crt -keystore <span style="text-decoration: underline;">YourkeystoreName</span>.jks</p>
+</blockquote>
+
+<p><strong>4. Importing a root or intermediate CA certificate to an existing  keystore</strong></p>
+
+<blockquote>
+<p>keytool -import -trustcacerts -alias root -file Thawte.crt -keystore <span style="text-decoration: underline;">YourkeystoreName</span>.jks</p>
+</blockquote>
+
+<p><strong>5. Creating a keystore and self-signed certificate</strong></p>
+
+<blockquote>
+<p>keytool -genkey -keyalg RSA -alias selfsigned -keystore Yourkeystore.jks -storepass password -validity 360</p>
+</blockquote>
+
+<h5 id="span-style-color-339966-strong-checking-commands-strong-span"><span style="color: #339966;"><strong>CHECKING COMMANDS</strong></span></h5>
+
+<p>When you need to check the information about a certificate or keystore then you use these commands.</p>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">6. Checking a particular certificate</strong><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;"><br /> </strong></p>
+
+<blockquote>
+<p>keytool -printcert -v -file <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">domain.crt</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">7. Checking all certificates in a keystore</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">9. Checking a particular keystore entry using an alias</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span> -alias Yourdomain</p>
+</blockquote>
+
+<h5 id="span-style-color-339966-edit-import-commands-span"><strong><span style="color: #339966;">EDIT/IMPORT COMMANDS</span></strong></h5>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">10. Deleting a certificate from a keystore</strong></p>
+
+<blockquote>
+<p>keytool -delete -alias <span style="text-decoration: underline;">Yourdomain</span> -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">11. Changing a keystore password</strong></p>
+
+<blockquote>
+<p>keytool -storepasswd -new new_password -keystore <span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">12. Exporting a certificate from a keystore</strong></p>
+
+<blockquote>
+<p>keytool -export -alias <span style="text-decoration: underline;">Yourdomain</span> -file <span style="text-decoration: underline;">Yourdomain.crt</span> -keystore Your<span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">13. Listing Trusted CA Certs</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore $JAVA_HOME/jre/lib/security/cacerts</p>
+
+<p><em><strong>P.S. – If you liked the post please click on one of the ads in the right hand column to help me keep up this site and do drop a me a line to suggest some topics that would like to see on this site.</strong></em></p>
+</blockquote>
+
+<p>So Long &#8230;&#8230;</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	      <a  href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="w3-btn w3-text-indigo w3-hover-green">
+	          &#10094; Read / Write Excel file in Java using Apache POI
+	      </a>
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/">
+	       10 IntelliJ IDEA Keyboard Shortcuts That You Must Know &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>

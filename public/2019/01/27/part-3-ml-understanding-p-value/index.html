@@ -1,0 +1,659 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Part 3 Machine Learning Understanding P Value • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Part 3 Machine Learning Understanding P Value"/>
+<meta name="twitter:description" content="Machine learning tutorial on Data preprocessing"/>
+
+<meta property="og:title" content="Part 3 Machine Learning Understanding P Value" />
+<meta property="og:description" content="Machine learning tutorial on Data preprocessing" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/01/27/part-3-ml-understanding-p-value/" />
+<meta property="article:published_time" content="2019-01-27T17:27:19-05:00"/>
+<meta property="article:modified_time" content="2019-01-27T17:27:19-05:00"/>
+
+
+
+<link rel="canonical" href="/2019/01/27/part-3-ml-understanding-p-value/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#common-conception-about-p-value">Common conception about P-VALUE</a></li>
+<li><a href="#how-to-calculate-p-value">How to calculate P-Value</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Part 3 Machine Learning Understanding P Value</h1>
+
+      <div >
+        <p> 2019-01-27 
+          
+             <code> 822 words  </code>
+             <code> 4 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/machine-learning/"> Machine learning </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          
+
+<p>In the <a href="http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/">previous post</a>, we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.</p>
+
+<p>So what is <strong>P-Value</strong> ?</p>
+
+<p>Before I bore you with stats definition of the P-Value. Let&rsquo;s start with something simple.
+ Mr X and Mr Y are good friends. One day Mr X and Mr Y decided to go scuba diving. The water in the lake was perfect blue and you could see the bottom and all the fishes swimming in there. After a while,</p>
+
+<p><code>Mr X:</code>
+ &gt; <em>I deem that more than 10% of the fishes in the lake are male&rdquo;.</em></p>
+
+<p><code>Mr Y</code>  who was also the warden of the lake.
+ &gt;<em>It is not possible as they release more female fishes than male.</em></p>
+
+<p><code>Mr X:</code>
+ &gt;<em>Every other fish that I see is male, hence my statement stands correct.</em></p>
+
+<p><code>Mr Y:</code>
+ &gt; <em>Let&rsquo;s use stats and find out if your statement is true. As I am the warden and know the fact that there are more female than male. Let&rsquo;s call my statement as</em></p>
+
+<blockquote>
+<p>*H<sub>0</sub>: &ldquo;There are more female than male.&rdquo;
+ and your statement as *</p>
+
+<p><em>H<sub>a</sub>: &ldquo;The number of male fish in the lake is more than 10%</em></p>
+</blockquote>
+
+<p><code>Mr Y:</code>
+ &gt; *Now if only I can prove that chances of my statement <strong>H<sub>0</sub></strong> happening is much higher than then your statement <strong>H<sub>a</sub></strong> can be rejected. Let&rsquo;s use P-value*</p>
+
+<p><code>Mr X:</code>
+ &gt; <em>What&rsquo;s a P-Value?</em></p>
+
+<p><code>Mr Y:</code>
+ &gt; *So based on the definition below, if we catch 10 samples of fish from the lake and 2 or more of those are male. We will then repeat the experiment multiple times and note down the result. Then we will find out the probability of the number of males caught in 100 experiments and conclude that my statement <strong>H<sub>0</sub></strong> is true and you cannot reject my argument.*</p>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/pvaluedef.PNG" alt="P-value-def" /></p>
+
+<p><code>Mr X</code>
+&gt;I caught 10 fishes and got 7 are female and 3 are male. I will now repeat this experement 100 times.</p>
+
+<p>Based on the above experiment what is the likelihood that <code>Mr X</code> would have got the same result? Calculating this likelihood is called <strong><code>P-Value</code></strong>.</p>
+
+<blockquote>
+<p>What do we do with this P-Value?</p>
+</blockquote>
+
+<p>The <code>P-Value</code> is used to validate a hypothesis. In the above example, the significance level chosen was 0.05. The P-Value calculated(Standard way using historgram)
+<img src="/placeholder.svg" data-src="/resources/img/histo.PNG" alt="histo" /></p>
+
+<p>So based on the above histogram shows how many females were caught. The diagram above is a random diagram that I copied from a different dataset. But assume that number of times the male figure was more than 1 is 21. Then the
+&gt;<em>probability(fish is male) = <sup>21</sup>&frasl;<sub>100</sub> or 0.21 or 21%</em></p>
+
+<p>So Hypothesis rule is that if the
+&gt; p-value is <strong>less than</strong> Significance level - Reject the <code>H&lt;sub&gt;0&lt;/sub&gt;</code>
+p-value is <strong>greater than or equal to</strong> Significance level - Cannot reject the <code>H&lt;sub&gt;0&lt;/sub&gt;</code>. We do not have enough eveidence for the claim <code>H&lt;sub&gt;a&lt;/sub&gt;</code></p>
+
+<p>In the above case we chose <code>Significance level = 0.01</code> and our <code>p-value=0.21</code>, so which means that we cannot reject the null hypothesis or <code>H&lt;sub&gt;0&lt;/sub&gt;</code> and we do not have enough evidence to say that <code>Number of male fishes is more than 10% in the lake</code></p>
+
+<h3 id="common-conception-about-p-value">Common conception about P-VALUE</h3>
+
+<p>There are two things that you need to understand about P-Value. The two most common things that I had to keep reminding myself(every few months as I tend to forget) are</p>
+
+<ul>
+<li><p>**The p-value is NOT the probability the claim is true. **
+Wouldn&rsquo;t it be amazing if that was true! Imagine -  “there is 30% chance that this M&amp;M pack is heavier than 100g”. Sadly, that&rsquo;s not the case.</p></li>
+
+<li><p><strong>The p-value is NOT the probability the null hypothesis is true.</strong>
+This one trips me up all the time. When I was trying to refresh my notes from Khan Academy about hypothesis testing, I had to keep repeating this rule as I got almost every question wrong, when it asked someting like - &ldquo;You should accept that null hypothesis is true. The correct way to interpret the result is by reminding that &ldquo;Null hypothese cannot be rejected&rdquo;. Another way of saying it is - I will give you benefit of doubt that Null hypothesis is true - until a more conclusive proof comes forward.</p></li>
+</ul>
+
+<p>The P-Value only tells us whether there is a Strong or Weak/low evidence that our null hypothesis <code>H&lt;sub&gt;0&lt;/sub&gt;</code> is true or not.</p>
+
+<h3 id="how-to-calculate-p-value">How to calculate P-Value</h3>
+
+<p>There are a number of ways to calulate P-value, a topic which I am not going to touch in this series. Here are some of the resources which will help you understand different techniques:</p>
+
+<ul>
+<li><a href="https://www.socscistatistics.com/pvalues/">P-Value calculator</a></li>
+<li><a href="https://www.wikihow.com/Calculate-P-Value">Wikihow - Calculate P-Value</a></li>
+</ul>
+
+<p>This conclues this series on P-Value. In the <a href="http://javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/">next series</a> we will review Multiple linear regression and you will understand how P-Value fits in the bigger picture.</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    <div class="w3-container">
+        
+        <h2>Related Articles:</h2>
+        <ul class="w3-ul w3-hoverable">
+            
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/22</span> &nbsp; <a href="/2019/01/22/part-2-ml-simplelinear-regression/">Part 2 Machine Learning Simplelinear Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/21</span> &nbsp; <a href="/2019/01/21/part-1-ml-data-preprocessing/">Part 1 Machine Learning Data Preprocessing</a></li>
+            
+        </ul>
+    </div>
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	      <a  href="/2019/02/02/part-4-ml-multiple-linear-regression/" class="w3-btn w3-text-indigo w3-hover-green">
+	          &#10094; Part 4 Machine Learning Multiple Regression
+	      </a>
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/01/22/part-2-ml-simplelinear-regression/">
+	       Part 2 Machine Learning Simplelinear Regression &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>
