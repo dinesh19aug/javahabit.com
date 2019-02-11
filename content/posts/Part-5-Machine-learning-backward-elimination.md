@@ -38,12 +38,12 @@ Backward elimination is a process to remove features that have little effect on 
 
 ## How do we implement *`Backward elimination`*?
 In backward elimination, you take all the variables and create the algorithm. Select a significance level, then consider the predictor with *Highest P-value* and if `P-Value > Significance level` then eliminate the variable from the equation, else keep it.
-![bkwd-elim](resources\img\bkwdelim\backward-elimination.PNG)
+![bkwd-elim](/resources/img/bkwdelim/backward-elimination.PNG)
 
 
 ## How do we implement it in python?
 In the [previous post](http://javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/), we were trying to figure out if a company is profitable or not by looking at 4 independent variables - `R&D Spent`, `Administration cost`, `Market spending` & `State`. We created a model with all the features. So let's pick up from where we left off. Here's how our dataset looks like
-![dataset](resources\img\bkwdelim\dataset.PNG)
+![dataset](/resources/img/bkwdelim/dataset.PNG)
 
 
 ```python
@@ -172,7 +172,7 @@ Based on the process, we now have to find the feature with the highest **`P-valu
 > x2 has the highest P-value = 0.990 > 0.05.
 
 So will drop the  feature x2 which corresponds to the `State dummy variable`
-![allfeature](resources\img\bkwdelim\featureall.PNG)
+![allfeature](/resources/img/bkwdelim/featureall.PNG)
 
 We will continue and re-run the model with just 5 feature
 
@@ -216,7 +216,7 @@ Once again in the above output
 > x1 has the highest P-value = 0.940 > 0.05
 
 So we will drop X1, which in this case represents the second dummy variable for the `State`.
-![allfeature](resources\img\bkwdelim\feature-5.PNG)
+![allfeature](/resources/img/bkwdelim/feature-5.PNG)
 
 
 So we will continue until we don't have variable that is greater than our **`significance level`**
