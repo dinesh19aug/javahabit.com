@@ -13,6 +13,7 @@ keywords:
   - multiple linear regression
   - linear regression
   - scikit, matpyplot
+  
 description: Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the basics of exploring the data set and predicting the result using multiple linear regression.
 categories:
   - Tech Notes
@@ -268,4 +269,4 @@ The output would be **`103015.19329118208`**, which is same as first row of **`y
 
 
 
-So that is the most basic way to do to solve a problem using Multiple Linear regression. Hope you enjoyed this series. Stay tuned for the next series where we will actually see the continuation of **`Multiple Linear regression`** and learn the **Backward Elimination process**.
+So that is the most basic way to do to solve a problem using Multiple Linear regression. Hope you enjoyed this series. Stay tuned for the next series where we will actually see the continuation of **`Multiple Linear regression`** and learn the [Backward Elimination process](http://www.javahabit.com//2019/02/10/part-5-ml-mltr-backward-elimination/).
