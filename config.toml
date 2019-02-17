@@ -18,7 +18,7 @@ hasCJKLanguage = false
       scrollindicator = true # if need scroll indicator on the top, set true
       gridstyle = true  # list post with grid style. If false then simple list
       readingtime = true  #display reading time
-      firstpic = false  # display first picture as thumbnail if no thumbnail set. For gridstyle only
+      firstpic = true  # display first picture as thumbnail if no thumbnail set. For gridstyle only
       socialshare = true
       socialicon = true
       googletranslate = true
@@ -54,7 +54,7 @@ hasCJKLanguage = false
 #  languageName = "English"
 #  contentDir = "content/english"
 #  [languages.en.params]
-#        authorinfo = "<h4>Dinesh Arora</h4>"
+        authorinfo = "<h4>Dinesh Arora</h4>"
 #        licenseinfo = "<p class=\"w3-small\">John Doe, a good man living on the earth, loving making website with hugo. This article is licensed under a <a rel=\"license\" href=\"https://creativecommons.org/licenses/by/4.0/\" class=\"w3-text-white\">Creative Commons Attribution 4.0 International License</a>.</p>"
 #        logotext = "HUGO W3 SIMPLE" # logo text
 #        isso_baseurl=""  #if you want to use isso as comment system,set your isso js baseurl here. It is like "https://isso.yourwebsite.com/" or "https://yourwebsite.com/isso/"
@@ -79,3 +79,4 @@ hasCJKLanguage = false
 #      url = "/allposts/"
 #      weight = 5
 googleAnalytics = "UA-47631412-1"
+
