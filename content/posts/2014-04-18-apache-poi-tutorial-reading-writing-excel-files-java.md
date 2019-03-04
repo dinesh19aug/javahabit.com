@@ -35,29 +35,29 @@ I am will be using Maven and IntelliJ to create my project, however you are welc
 There are two different maven dependencies one for creating an older version of excel &#8211; XLS format and other for creating new version of Excel &#8211; XLSX format. I am listing both the dependencies here.
 
 > <dependencies>
-  
+
 > <!&#8211; For Excel 2007 &#8211;>
-  
+
 > <dependency>
-  
+
 > <groupId>org.apache.poi</groupId>
-  
+
 > <artifactId>poi</artifactId>
-  
+
 > <version>3.9</version>
-  
+
 > </dependency>
-  
+
 > <dependency>
-  
+
 > <groupId>org.apache.poi</groupId>
-  
+
 > <artifactId>poi-ooxml</artifactId>
-  
+
 > <version>3.9</version>
-  
+
 > </dependency>
-  
+
 > </dependencies>
 
 Create a new module in IntelliJ.
@@ -76,7 +76,8 @@ Before we go ahead here&#8217;s quick primer on 3  key classes in POI.
   2. XSSF &#8211;  Java implementation of the Excel 2007 OOXML (.xlsx) file format. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="XSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/usermodel/XSSFWorkbook.html" target="_blank" rel="external nofollow">XSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="XSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/usermodel/XSSFSheet.html" target="_blank" rel="external nofollow">XSSFSheet</a>.
   3. SXSSF &#8211; Used when very large spreadsheets have to be produced, and heap space is limited. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFWorkbook.html" target="_blank" rel="external nofollow">SXSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFSheet.html" target="_blank" rel="external nofollow">SXSSFSheet</a>.
 
-<span style="font-size: 16px;">There are other wide range of classes as well which can be used to manipulate the Excel sheet. Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 16px;" title="BuiltinFormats" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/BuiltinFormats.html" target="_blank" rel="external nofollow">BuiltinFormats</a><span style="font-size: 16px;">, <a title="ConditionalFormattingRule" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ConditionalFormattingRule.html" target="_blank" rel="external nofollow">ConditionalFormattingRule</a>,</span><a style="font-size: 16px;" title="ComparisonOperator" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ComparisonOperator.html" target="_blank" rel="external nofollow">ComparisonOperator</a><span style="font-size: 16px;">,<a title="CellStyle" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/CellStyle.html" target="_blank" rel="external nofollow">CellStyle</a>, </span><a style="font-size: 16px;" title="FontFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/FontFormatting.html" target="_blank" rel="external nofollow">FontFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="IndexedColors" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/IndexedColors.html" target="_blank" rel="external nofollow">IndexedColors</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="PatternFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/record/cf/PatternFormatting.html" target="_blank" rel="external nofollow">PatternFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="SheetConditionalFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/SheetConditionalFormatting.html" target="_blank" rel="external nofollow">SheetConditionalFormatting</a>. These used for formatting the sheet and formula evaluation.<span style="font-size: 16px;"><br /> </span>
+<span style="font-size: 16px;">There are other wide range of classes as well which can be used to manipulate the Excel sheet.   
+Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 16px;" title="BuiltinFormats" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/BuiltinFormats.html" target="_blank" rel="external nofollow">BuiltinFormats</a><span style="font-size: 16px;">, <a title="ConditionalFormattingRule" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ConditionalFormattingRule.html" target="_blank" rel="external nofollow">ConditionalFormattingRule</a>,</span><a style="font-size: 16px;" title="ComparisonOperator" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ComparisonOperator.html" target="_blank" rel="external nofollow">ComparisonOperator</a><span style="font-size: 16px;">,<a title="CellStyle" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/CellStyle.html" target="_blank" rel="external nofollow">CellStyle</a>, </span><a style="font-size: 16px;" title="FontFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/FontFormatting.html" target="_blank" rel="external nofollow">FontFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="IndexedColors" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/IndexedColors.html" target="_blank" rel="external nofollow">IndexedColors</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="PatternFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/record/cf/PatternFormatting.html" target="_blank" rel="external nofollow">PatternFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="SheetConditionalFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/SheetConditionalFormatting.html" target="_blank" rel="external nofollow">SheetConditionalFormatting</a>. These used for formatting the sheet and formula evaluation.<span style="font-size: 16px;"><br /> </span>
 
 **HOW TO CREATE A NEW EXCEL SHEET**
 
@@ -139,7 +140,8 @@ public class NewExcel {
         }
         //Save the excel sheet
         try{
-            FileOutputStream out = new FileOutputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            FileOutputStream out = new FileOutputStream(
+              new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("javahabitExcelDemo.xlsx Successfully created");
@@ -189,7 +191,8 @@ public class ReadExcel {
     public static void main(String[] args) {
         try {
             //Get the Excel File
-            FileInputStream file = new FileInputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            FileInputStream file = new FileInputStream(
+              new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
 
             //Get the Desired sheet
@@ -277,7 +280,8 @@ public class CalculateFormula {
 
         //Save the File
         try {
-            FileOutputStream out =  new FileOutputStream(new File("c:\Dinesh\javahabitformulaDemo.xlsx"));
+            FileOutputStream out =  new FileOutputStream(
+              new File("c:\Dinesh\javahabitformulaDemo.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("Excel File with formla is created!");

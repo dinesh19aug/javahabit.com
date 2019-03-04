@@ -488,4 +488,4 @@ So after playing around with different option and values, you will see that if y
 
 So that's it for this series. Try a different dataset, probably get one from the [Multiple Linear regression](http://www.javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/) about `50_Startups` and predict using `linear kernel`.
 
-In the next series, we will learn about our first ever classification model - `Decision Trees`. Till then happy `Happy hyper-planing`
+In the next series, we will learn about our first ever classification model - [Decision Trees](http://www.javahabit.com/2019/03/02/decision-tree-using-python/). Till then happy `Happy hyper-planing`
