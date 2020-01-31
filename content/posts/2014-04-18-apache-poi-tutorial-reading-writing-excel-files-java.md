@@ -4,7 +4,6 @@ author: Dinesh
 type: post
 date: 2014-04-18T16:27:58+00:00
 url: /2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/
-featured_image: /wp-content/uploads/2014/04/creating-a-chainable-select-for-spreadsheets-with-apache-POI.jpg
 dsq_thread_id:
   - 5441656492
   - 5441656492
@@ -66,7 +65,7 @@ Create a new module in IntelliJ.
 
 Add the dependency in your pom.xml
 
-<img class="alignnone size-full wp-image-710" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_535146cc7b62e.png" alt="" />
+<img src="http://www.javahabit.com/wp-content/uploads/2014/04/img_535146cc7b62e.png" alt="" />
 
 **PAUSE & THINK: KEY POI CLASSES**
 
@@ -84,11 +83,11 @@ Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 
 
 This involves the following steps.
 
-<img class="alignnone size-full wp-image-711" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514874f1362.png" alt="" />
+<img src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514874f1362.png" alt="" />
 
 So go ahead and create a new file called NewExcel.java
-
-<pre>package com.dinesh;
+```java
+package com.dinesh;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -153,13 +152,13 @@ public class NewExcel {
         }
     }
 
-}</pre>
+}
+```
 
 **OUTPUT**
 
-<img class="alignnone size-full wp-image-723" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514e60ec9eb.png" alt="" />
+<img src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514e60ec9eb.png" alt="" />
 
-&nbsp;
 
 **HOW TO READ A NEW EXCEL SHEET**
 
@@ -169,9 +168,9 @@ The steps involved are
 
 <img class="alignnone size-full wp-image-724" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514eb219cb7.png" alt="" />
 
-&nbsp;
+```java
 
-<pre>package com.dinesh;
+package com.dinesh;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -226,13 +225,13 @@ public class ReadExcel {
         }
 
     }
-}</pre>
+}
+```
 
 **OUTPUT**
 
-<img class="alignnone size-full wp-image-725" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514ff0c1a46.png" alt="" />
+<img  src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514ff0c1a46.png" alt="" />
 
-&nbsp;
 
 ### **Using formulas in excel sheet**
 
@@ -242,9 +241,8 @@ So Let&#8217;s see an example on setting a formula cells in the excel sheet.
 
 In this code we will try to calculate the Simple interest. Formula &#8211; Principal \* Interest \* Time.
 
-&nbsp;
-
-<pre>package com.dinesh;
+```java
+package com.dinesh;
 
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -293,17 +291,17 @@ public class CalculateFormula {
             e.printStackTrace();
         }
     }
-}</pre>
+}
+```
 
 **OUTPUT**
 
-<img class="alignnone size-full wp-image-726" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_5351516d00b65.png" alt="" />
+<img  src="http://www.javahabit.com/wp-content/uploads/2014/04/img_5351516d00b65.png" alt="" />
 
-&nbsp;
+
 
 So experiment your way with this jar file and do post your comments and suggestions on topics you had like to see in my future posts.
 
-&nbsp;
 
 ~ Ciao
 

@@ -1,0 +1,137 @@
+logoText = "A Morsel Of Code - One Byte At A Time"
+logoType = "long" # long, short
+description = "A Morsel Of Code - One Byte At A Time"
+custom_css = []
+custom_js = []
+useFaviconGenerator = true # https://www.favicon-generator.org/
+
+themeOptions = ["dark", "light", "hacker", "solarized", "kimbie"]
+#themeOptions = ["light"]
+notAllowedTypesInHome = ["contact", "talks", "about", "showcase"]
+notAllowedTypesInHomeSidebar = ["about", "archive", "showcase"]
+notAllowedTypesInArchive = ["about", "talks", "showcase"]
+
+# header
+homeHeaderType = "text" # text, img, slide
+
+# body
+enableBreadcrumb = true
+enablePhotoSwipe = true
+enableSearch = true
+enableSearchHighlight = true
+enableGoToTop = true
+enableWhoami = true
+summaryShape = "classic" # card, classic, compact
+archiveGroupByDate = "2006" # "2006-01": group by month, "2006": group by year
+archivePaginate = 13
+paginateWindow = 1
+talksPaginate = 5
+talksGroupByDate = "2006"
+
+# whoami
+myname = "Dinesh Arora"
+email = "dinesh19aug@gmail.com"
+whoami = "Developer"
+bioImageUrl = "https://avatars3.githubusercontent.com/u/1176242?s=460&v=4"
+useGravatar = false
+location = "Charlotte, NC USA"
+organization = "javahabit.com"
+link = "https://www.linkedin.com/in/dinesharora"
+
+# sidebar
+enableBio = true
+enableSidebar = true
+enableSidebarTags = true
+enableSidebarSeries = true
+enableSidebarCategories = true
+enableHomeSidebarTitles = true
+enableListSidebarTitles = true
+enableToc = true
+hideToc = false
+tocPosition = "inner" # inner, outer
+enableTocSwitch = true
+itemsPerCategory = 5
+sidebarPosition = "right"
+
+# footer
+showPoweredBy = true
+showFeedLinks = true
+showSocialLinks = true
+enableLangChange = false
+enableThemeChange = true
+
+# service
+baiduAnalytics = ""
+enableBusuanzi = false
+busuanziSiteUV = false
+busuanziSitePV = false
+busuanziPagePV = false
+
+# comment
+enableComment = true
+disqus_shortname = "disqus_LO4DkIywMX"
+commento = true
+
+[gitment]          # Gitment is a comment system based on GitHub issues. see https://github.com/imsun/gitment
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+  clientId = ""           # Your client ID
+  clientSecret = ""       # Your client secret
+
+[utterances]       # https://utteranc.es/
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+
+[gitalk]           # Gitalk is a comment system based on GitHub issues. see https://github.com/gitalk/gitalk
+  owner = ""              # Your GitHub ID
+  repo = ""               # The repo to store comments
+  clientId = ""           # Your client ID
+  clientSecret = ""       # Your client secret
+
+
+# Isso: https://posativ.org/isso/
+[isso]
+  enable = false
+  scriptSrc = "" # "https://isso.example.com/js/embed.min.js"
+  dataAttrs = "" # "data-isso='https://isso.example.com' data-isso-require-author='true'"
+
+[socialOptions]
+  email = "mailto:dinesh19aug@email.com"
+  phone = ""
+  #facebook = "http://example.org/"
+  twitter = "https://twitter.com/dinesh19aug"
+  github = "https://github.com/dinesh19aug"
+  stack-overflow = "https://stackoverflow.com/users/1172194/dinesh-arora"
+  instagram = ""
+  google-plus = ""
+  youtube = ""
+  medium = ""
+  tumblr = ""
+  linkedin = ""
+  pinterest = ""
+  stack-exchange = ""
+  telegram = ""
+  steam = ""
+  weibo = ""
+  douban = ""
+  csdn = ""
+  gitlab = ""
+  mastodon = ""
+  jianshu = ""
+  zhihu = ""
+  signal = ""
+  whatsapp = ""
+
+[donationOptions]
+  enable = true
+  alipay = ""
+  wechat = ""
+  paypal = ""
+  patreon = ""
+
+# possible share name: ["facebook","twitter", "reddit", "linkedin", "tumblr", "weibo", "douban", "line"]
+[[share]]
+  name = "facebook"
+  username = ""
+[[share]]
+  name = "twitter"

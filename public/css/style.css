@@ -43,12 +43,12 @@ a:hover {
 /* code */
 .w3-code{width:auto;background-color:#fff;padding:8px 12px;border-left:4px solid #4CAF50;overflow-x:auto;word-wrap:break-word;}
 
-code { color:crimson;background-color:#f9f9f9;padding-left:4px;padding-right:4px; }
+code { color:green;background-color:#f9f9f9;padding-left:4px;padding-right:4px; }
 /* misc elements */
 .wraptext{word-wrap:break-word}
 
-#content img, iframe, video { 
-    max-width: 100%; 
+#content img, iframe, video {
+    max-width: 100%;
     height:auto;
     display: block;
     margin-left: auto;
@@ -65,14 +65,14 @@ blockquote {
 }
 blockquote p {
     padding-bottom: 0px;
-  
-  
+
+
 }
 
 /* change em to color red */
 
 em {
-   
+
    font-style: normal;
    color:crimson;
 }
@@ -111,7 +111,7 @@ text-decoration: underline;
   color: white;
   font-size: 20px;
   }
-  
+
   }
   @media screen and (max-width: 1024px) {
   .icon-bar {
@@ -120,7 +120,7 @@ text-decoration: underline;
     max-width: 350px;
     margin-left: auto;
     margin-right:auto;
-    
+
   }
 
   .icon-bar a {
@@ -133,18 +133,18 @@ text-decoration: underline;
     font-size: 20px;
   }
    .bookmark {
-  
+
   border-radius: 36px   0px 0px 36px!important ;
 }
 
  .linkedin {
-  
+
   border-radius: 0px  36px 36px 0px!important;
   }
 
   }
 
-  
+
 
   .icon-bar a:hover {
   background-color: #000;
@@ -244,7 +244,7 @@ text-decoration: underline;
 .overlay button:hover {
     background: #bbb;
 }
-  
+
 /* pagination */
 
 .pagination {
@@ -257,7 +257,7 @@ text-decoration: underline;
     padding: 8px 16px;
     text-decoration: none;
     border: 1px solid #ddd;
-   
+
     background-color: #2196F3;
 }
 
@@ -291,8 +291,8 @@ text-decoration: underline;
   position: fixed;
   top: 20px;
   right: 0;
-  z-index: 99;  
- 
+  z-index: 99;
+
 }
 /* backtotop */
 
@@ -308,14 +308,14 @@ text-decoration: underline;
     transition: all 0.2s ease,-webkit-transform 0.6s ease;
     transition: all 0.2s ease,transform 0.6s ease;
     transition: all 0.2s ease,transform 0.6s ease,-webkit-transform 0.6s ease;
- 
-   
+
+
 }
 
 /* glowing logo */
 .glow {
-  
-  
+
+
   -webkit-animation: glow 2s ease-in-out infinite alternate;
   -moz-animation: glow 2s ease-in-out infinite alternate;
   animation: glow 2s ease-in-out infinite alternate;
@@ -364,13 +364,13 @@ position: fixed;
     transform: translate(-50%, -50%);
     max-height: 100%;
     max-width: 100%;
-   
+
 }
 
 /* allowads */
 
 .adBanner {
-    
+
     height: 1px;
     width: 1px;
 }
@@ -396,5 +396,5 @@ position: fixed;
     margin-top: 30px;
     margin-left:auto;
     margin-right:auto;
-    
+
 }

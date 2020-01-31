@@ -5,8 +5,8 @@ type: post
 date: 2015-04-23T20:49:08+00:00
 url: /2015/04/23/powermock-how-to-test-a-private-method/
 snap_MYURL:
-  - 
-  - 
+  -
+  -
 snapEdIT:
   - 1
   - 1
@@ -39,15 +39,15 @@ categories:
 
 I was working on new code where I had the luxury to write the code in peace (a rarity at my work place where every project is like a fire drill). While writing test cases I came across a situation where I had a class with two methods:
 
-[java]
-  
-<pre>public void my\_public\_method()
+```java
 
-private void my\_private\_method()
-  
-[/java]
+public void my_public_method()
 
-&nbsp;
+private void my_private_method()
+
+```
+
+
 
 I wanted to write test cases for both the method. However Junit would not allow me to write a test case for a private method. I searched over internet forums and every one suggested that I use [**Java Reflection API**][1]  to write my test cases or make my private method public, which I did not want to do.
 
@@ -57,139 +57,134 @@ So that’s what I am going to demonstrate in this tutorial.
 
 **STEP 1: Add Maven jar files**
 
-[xml]
-  
+```xml
+
 <properties>
-      
+
 <relative.path>relative/svn/path</relative.path>
-        
+
 <powermock.version>1.6.2</powermock.version>
-    
+
 </properties>
-   
+
 <dependencies>
-  
+
 &#8230;&#8230;..
-        
+
 <dependency>
-            
+
 <groupId>junit</groupId>
-            
+
 <artifactId>junit</artifactId>
-            
+
 <version>4.11</version>
-            
+
 <scope>test</scope>
-        
+
 </dependency>
-        
+
 <dependency>
-            
+
 <groupId>org.powermock</groupId>
-            
+
 <artifactId>powermock-module-junit4</artifactId>
-            
+
 <version>${powermock.version}</version>
-            
+
 <scope>test</scope>
-        
+
 </dependency>
-        
+
 <dependency>
-            
+
 <groupId>org.powermock</groupId>
-            
+
 <artifactId>powermock-api-easymock</artifactId>
-            
+
 <version>${powermock.version}</version>
-            
+
 <scope>test</scope>
-        
+
 </dependency>
-   
+
 <dependencies>
-  
-[/xml]
+
+```
 
 **STEP 2: Create a class MyClass.java**
 
-&nbsp;
+```java
+public class MyClass {
 
-[java]</pre>
-  
-<pre>public class MyClass {
-      
 //PUBLIC METHOD
-      
-public String my\_public\_method(){
-          
+
+public String my _public _method(){
+
 String msg="This is my PUBLIC method";
-          
+
 System.out.println(msg);
-          
+
 return msg;
-      
+
 }
 
 //PRIVATE METHOD
-      
-private String my\_private\_method(){
-          
+
+private String my _private _method(){
+
 String msg="This is my PRIVATE method";
-          
+
 System.out.println(msg);
-          
+
 return msg;
-      
+
 }
-  
+
 }
-  
-[/java]
 
-<pre></pre>
+```
 
-**STEP 3: Write a test case for public method : my\_public\_method**
+**STEP 3: Write a test case for public method : my _public _method**
 
-[java]
+```java
 
 import org.junit.Assert;
-  
+
 import org.junit.Test;
-  
+
 import org.junit.runner.RunWith;
-  
+
 import org.powermock.core.classloader.annotations.PrepareForTest;
-  
+
 import org.powermock.modules.junit4.PowerMockRunner;
-  
+
 import org.powermock.reflect.internal.WhiteboxImpl;
 
 @RunWith(PowerMockRunner.class)
-  
+
 @PrepareForTest(MyClass.class)
-  
+
 public class MyClassTest {
-      
+
 final String publicMsg = "This is my PUBLIC method";
-      
+
 final String privateMsg = "This is my PRIVATE method";
 
 @Test
-      
-public void testMy\_public\_method() throws Exception {
-          
+
+public void testMy _public _method() throws Exception {
+
 MyClass myClass = new MyClass();
-          
-String msg=myClass.my\_public\_method();
-          
+
+String msg=myClass.my _public _method();
+
 Assert.assertEquals(publicMsg,msg);
-      
-}
-  
+
 }
 
-[/java]
+}
+
+```
 
 As you can see above that there is no issue with calling a public method and it will run successfully but when you try and call the private method, the code will show error that private method is not visible.
 
@@ -217,21 +212,21 @@ Before you do anything you need to make sure that you added Powermock annotation
 
   * Write the code to test private method.
 
-[java]
-      
+```java
+
 @Test
-      
-public void testMy\_private\_method() throws Exception {
-          
+
+public void testMy _private _method() throws Exception {
+
 MyClass myClass = new MyClass();
-          
-String msg= WhiteboxImpl.invokeMethod(myClass, "my\_private\_method");
-          
+
+String msg= WhiteboxImpl.invokeMethod(myClass, "my _private _method");
+
 Assert.assertEquals(privateMsg,msg);
-      
+
 }
-  
-[/java]
+
+```
 
 The syntax is pretty simple **WhiteboxImpl.invokeMethod(<class object>, “<Name of the private Method>,input param1, input param2,…);**
 
@@ -245,9 +240,6 @@ Now run the test class and you will see that test cases have passed.
 
 ~Ciao –Repeat the mantra – “I HAVE THE POWER{MOCK}!!!”
 
-&nbsp;
-
-<pre></pre>
 
  [1]: https://docs.oracle.com/javase/tutorial/reflect/
  [2]: https://code.google.com/p/powermock/

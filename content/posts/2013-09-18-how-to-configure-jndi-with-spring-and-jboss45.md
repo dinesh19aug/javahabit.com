@@ -18,248 +18,211 @@ This is a simple process but if you try and search on the web you will come acro
 
 I have a web application which is built on Spring 3.2 and uses Hibernate 4. To set up a new JNDI configuration we will first create a datasource xml file. This file needs to be deployed in Jboss/Deploy folder along with your war file.
 
-<span style="text-decoration: underline;"><strong>Step 1:</strong></span>
+_Step 1:_
 
 Create a datasource file oracle-ds.xml. The content of the file will look like this
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-<span style="color: #008000;"><?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?></span>
+<!DOCTYPE datasources PUBLIC -//JBoss//DTD JBOSS JCA Config 1.5//EN" http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd">
 
-<span style="color: #008000;"><!DOCTYPE datasources PUBLIC &#8220;-//JBoss//DTD JBOSS JCA Config 1.5//EN&#8221; &#8220;http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd&#8221;></span>
+<datasources>
 
-<span style="color: #008000;"><datasources></span>
+  <local-tx-datasource>
 
-<span style="color: #008000;">  <local-tx-datasource></span>
+    <jndi-name><strong>jdbc/listener-dss </jndi-name>
 
-<span style="color: #008000;">    <jndi-name><strong>jdbc/listener-dss</strong></jndi-name></span>
+    <connection-url>jdbc:oracle:thin:@dbsrvossdevl:1521:US91</connection-url>
 
-<span style="color: #008000;">    <connection-url>jdbc:oracle:thin:@dbsrvossdevl:1521:US91</connection-url></span>
+    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
 
-<span style="color: #008000;">    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class></span>
+    <user-name>myuser</user-name>
 
-<span style="color: #008000;">    <user-name>myuser</user-name></span>
+    <password>mypassword</password>
 
-<span style="color: #008000;">    <password>mypassword</password></span>
+    <min-pool-size>5</min-pool-size>
 
-<span style="color: #008000;">    <min-pool-size>5</min-pool-size></span>
+    <max-pool-size>50</max-pool-size>
 
-<span style="color: #008000;">    <max-pool-size>50</max-pool-size></span>
+    <idle-timeout-minutes>10</idle-timeout-minutes>
 
-<span style="color: #008000;">    <idle-timeout-minutes>10</idle-timeout-minutes></span>
+    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name>
 
-<span style="color: #008000;">    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name></span>
+    <metadata>
 
-<span style="color: #008000;">    <metadata></span>
+      <type-mapping>Oracle9i</type-mapping>
 
-<span style="color: #008000;">      <type-mapping>Oracle9i</type-mapping></span>
+    </metadata>
 
-<span style="color: #008000;">    </metadata></span>
+  </local-tx-datasource>
 
-<span style="color: #008000;">  </local-tx-datasource></span>
+</datasources>
+```
 
-<span style="color: #008000;"></datasources></span>
 
-&nbsp;
+__Explanation:__
+```xml
+ <jndi-name>jdbc/listener-dss </jndi-name>
+```
+  This line tells what is the jndi name that we are going to use across configuration files.
 
-<span style="color: #000000;"><strong>Explanation:</strong> <jndi-name><strong style="color: #008000;">jdbc/listener-dss</strong></jndi-name> . This line tells what is the jndi name that we are going to use across configuration files.</span><span style="color: #008000;"><br /> </span>
 
-&nbsp;
 
-<span style="text-decoration: underline;"><strong><span style="color: #000000; text-decoration: underline;">Step</span></strong></span>** <span style="color: #000000;">2:</span>**<span style="color: #000000;"> Now open your web.xml file and add the resource-ref. This tells that jee container that your web application is using JNDI.</span>
+_Step_  2:  Now open your web.xml file and add the resource-ref. This tells that jee container that your web application is using JNDI.
 
-<span style="color: #000000;">Your web.xml should be under <strong>WEB-INF</strong> folder. Add the below lines in your web.xml (<strong>see the highlighted section</strong>). This step is common whether you use Jboss or Tomcat or Websphere or any other application server.</span>
+Your web.xml should be under WEB-INF  folder. Add the below lines in your web.xml (<strong>see the highlighted section ). This step is common whether you use Jboss or Tomcat or Websphere or any other application server.
 
-&nbsp;
+```xml
 
-<span style="color: #008000;"><?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?></span>
+<?xml version="1.0" encoding="UTF-8"?>
 
-<span style="color: #008000;"><web-app version=&#8221;2.5&#8243; xmlns=&#8221;http://java.sun.com/xml/ns/javaee&#8221; xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;</span>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 
-<span style="color: #008000;">  xsi:schemaLocation=&#8221;http://java.sun.com/xml/ns/javaee</span>
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 
-<span style="color: #008000;">  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&#8221;></span>
+  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-<span style="color: #008000;">  <display-name>ACN Web Application</display-name></span>
+  <display-name>ACN Web Application</display-name>
 
-&nbsp;
 
-<span style="color: #008000;">    <servlet></span>
 
-<span style="color: #008000;">        <servlet-name>listener</servlet-name></span>
+    <servlet>
 
-<span style="color: #008000;">        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class></span>
+        <servlet-name>listener</servlet-name>
 
-<span style="color: #008000;">        <load-on-startup>1</load-on-startup></span>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 
-<span style="color: #008000;">    </servlet></span>
+        <load-on-startup>1</load-on-startup>
 
-&nbsp;
+    </servlet>
 
-<span style="color: #008000;">    <servlet-mapping></span>
 
-<span style="color: #008000;">        <servlet-name>listener</servlet-name></span>
 
-<span style="color: #008000;">        <url-pattern>/</url-pattern></span>
+    <servlet-mapping>
 
-<span style="color: #008000;">    </servlet-mapping></span>
+        <servlet-name>listener</servlet-name>
 
-&nbsp;
+        <url-pattern>/</url-pattern>
 
-<span style="color: #008000;">    <context-param></span>
+    </servlet-mapping>
 
-<span style="color: #008000;">        <param-name>contextConfigLocation</param-name></span>
 
-<span style="color: #008000;">        <param-value>/WEB-INF/listener-servlet.xml</param-value></span>
 
-<span style="color: #008000;">    </context-param></span>
+    <context-param>
 
-<span style="color: #008000;">    <strong><resource-ref></strong></span>
+        <param-name>contextConfigLocation</param-name>
 
-**<span style="color: #008000;">        <description>Listener Database</description></span>**
+        <param-value>/WEB-INF/listener-servlet.xml</param-value>
 
-**<span style="color: #008000;">        <res-ref-name>jdbc/listener-dss</res-ref-name></span>**
+    </context-param>
 
-**<span style="color: #008000;">        <res-type>javax.sql.DataSource</res-type></span>**
+    <resource-ref>
 
-**<span style="color: #008000;">        <res-auth>Container</res-auth></span>**
+         <description>Listener Database</description>
 
-**<span style="color: #008000;">    </resource-ref></span>**
+         <res-ref-name>jdbc/listener-dss</res-ref-name>
 
-&nbsp;
+         <res-type>javax.sql.DataSource</res-type>
 
-<span style="color: #008000;">    <listener></span>
+         <res-auth>Container</res-auth>
 
-<span style="color: #008000;">        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></span>
+     </resource-ref>
 
-<span style="color: #008000;">    </listener></span>
 
-&nbsp;
 
-<span style="color: #008000;">  <welcome-file-list></span>
+    <listener>
 
-<span style="color: #008000;">    <welcome-file>index.jsp</welcome-file></span>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 
-<span style="color: #008000;">  </welcome-file-list></span>
+    </listener>
 
-&nbsp;
 
-<span style="color: #008000;"></web-app></span>
 
-&nbsp;
+  <welcome-file-list>
 
-<span style="text-decoration: underline;"><strong><span style="color: #000000; text-decoration: underline;">Step</span></strong></span>** <span style="color: #000000;">3:</span>** <span style="color: #000000;">Next we will update the Spring context xml file to tell the Spring container that it needs to do a JNDI look up. My Spring context file name is listener-servlet.xml and this is under <strong>WEB-INF</strong> folder. Add the following(See highlighted section)</span>
+    <welcome-file>index.jsp</welcome-file>
 
-&nbsp;
+  </welcome-file-list>
 
-<span style="color: #008000;"><beans xmlns=&#8221;http://www.springframework.org/schema/beans&#8221;</span>
 
-<span style="color: #008000;">       xmlns:context=&#8221;http://www.springframework.org/schema/context&#8221;</span>
 
-<span style="color: #008000;">       xmlns:mvc=&#8221;http://www.springframework.org/schema/mvc&#8221; xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;</span>
+</web-app>
+```
 
-<span style="color: #008000;">       xmlns:tx=&#8221;http://www.springframework.org/schema/tx&#8221;</span>
 
-<span style="color: #008000;">       xmlns:p=&#8221;http://www.springframework.org/schema/p&#8221;</span>
+_Step 3_:  Next we will update the Spring context xml file to tell the Spring container that it needs to do a JNDI look up. My Spring context file name is listener-servlet.xml and this is under __WEB-INF__ folder. Add the following(See highlighted section)
 
-<span style="color: #008000;">       xsi:schemaLocation=&#8221;http://www.springframework.org/schema/beans</span>
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
 
-<span style="color: #008000;">        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</span>
+       xmlns:context="http://www.springframework.org/schema/context"
 
-<span style="color: #008000;">        http://www.springframework.org/schema/context</span>
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd >
+        <context:component-scan base-package="com.acn.cslistener" />
+    <mvc:annotation-driven />
+    <tx:annotation-driven/>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix">
+            <value>/WEB-INF/pages/</value>
+        </property>
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+         <property name="dataSource" ref="dataSource"/>
+         <property name="hibernateProperties">
+             <props>
+                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
+                 <prop key="hibernate.show_sql">true</prop>
+             </props>
+         </property>
+         <property name="packagesToScan" value="com.acn.cslistener" />
+     </bean>
+      <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+         <property name="jndiName" value="java:comp/env/jdbc/listener-dss"/>
+     </bean>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+          p:sessionFactory-ref="sessionFactory">
+    </bean>
+    <bean id="persistenceAnnotation" class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+</beans>
 
-<span style="color: #008000;">        http://www.springframework.org/schema/context/spring-context-3.0.xsd</span>
+```  
 
-<span style="color: #008000;">        http://www.springframework.org/schema/mvc</span>
+_Step 4:_  This is the crucial step. If you are using Jboss then it requires that you tell the web container that Jboss will provide the datasource .xml file where you have defined your jndi properties. Create a new file <strong>jboss-web.xml.  Place this file under <strong>WEB-INF  folder. The contents of the file whould like this.
 
-<span style="color: #008000;">        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</span>
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
 
-<span style="color: #008000;">        http://www.springframework.org/schema/tx</span>
+<jboss-web>
 
-<span style="color: #008000;">        http://www.springframework.org/schema/tx/spring-tx.xsd &#8220;></span>
+    <resource-ref>
 
-<span style="color: #008000;">    <context:component-scan base-package=&#8221;com.acn.cslistener&#8221; /></span>
+        <res-ref-name>jdbc/listener-dss</res-ref-name>
 
-<span style="color: #008000;">    <mvc:annotation-driven /></span>
+        <res-type>javax.sql.DataSource</res-type>
 
-<span style="color: #008000;">    <tx:annotation-driven/></span>
+        <jndi-name>java:/jdbc/listener-dss</jndi-name>
 
-<span style="color: #008000;">    <bean</span>
+    </resource-ref>
 
-<span style="color: #008000;">            class=&#8221;org.springframework.web.servlet.view.InternalResourceViewResolver&#8221;></span>
+</jboss-web>
 
-<span style="color: #008000;">        <property name=&#8221;prefix&#8221;></span>
+```  
 
-<span style="color: #008000;">            <value>/WEB-INF/pages/</value></span>
+That's all we need to do.
 
-<span style="color: #008000;">        </property></span>
 
-<span style="color: #008000;">        <property name=&#8221;suffix&#8221;></span>
-
-<span style="color: #008000;">            <value>.jsp</value></span>
-
-<span style="color: #008000;">        </property></span>
-
-<span style="color: #008000;">    </bean></span>
-
-<span style="color: #008000;">   <strong> <bean id=&#8221;sessionFactory&#8221; class=&#8221;org.springframework.orm.hibernate4.LocalSessionFactoryBean&#8221;></strong></span>
-
-**<span style="color: #008000;">        <property name=&#8221;dataSource&#8221; ref=&#8221;dataSource&#8221;/></span>**
-
-**<span style="color: #008000;">        <property name=&#8221;hibernateProperties&#8221;></span>**
-
-**<span style="color: #008000;">            <props></span>**
-
-**<span style="color: #008000;">                <prop key=&#8221;hibernate.dialect&#8221;>org.hibernate.dialect.Oracle10gDialect</prop></span>**
-
-**<span style="color: #008000;">                <prop key=&#8221;hibernate.show_sql&#8221;>true</prop></span>**
-
-**<span style="color: #008000;">            </props></span>**
-
-**<span style="color: #008000;">        </property></span>**
-
-**<span style="color: #008000;">        <property name=&#8221;packagesToScan&#8221; value=&#8221;com.acn.cslistener&#8221; /></span>**
-
-**<span style="color: #008000;">    </bean></span>**
-
-**<span style="color: #008000;">    <span style="color: #008080;"><bean id=&#8221;dataSource&#8221; class=&#8221;org.springframework.jndi.JndiObjectFactoryBean&#8221;></span></span>**
-
-<span style="color: #008080;"><strong>        <property name=&#8221;jndiName&#8221; value=&#8221;java:comp/env/jdbc/listener-dss&#8221;/></strong></span>
-
-<span style="color: #008080;"><strong>    </bean></strong></span>
-
-**<span style="color: #008000;">    <bean id=&#8221;transactionManager&#8221; class=&#8221;org.springframework.orm.hibernate4.HibernateTransactionManager&#8221;</span>**
-
-**<span style="color: #008000;">          p:sessionFactory-ref=&#8221;sessionFactory&#8221;></span>**
-
-**<span style="color: #008000;">    </bean></span>**
-
-<span style="color: #008000;">    <bean id=&#8221;persistenceAnnotation&#8221;    class=&#8221;org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor&#8221; /></span>
-
-<span style="color: #008000;"></beans></span>
-
-<span style="color: #000000;"> </span>
-
-**<span style="color: #000000;">Step 4: </span>**<span style="color: #000000;">This is the crucial step. If you are using Jboss then it requires that you tell the web container that Jboss will provide the datasource .xml file where you have defined your jndi properties. Create a new file <strong>jboss-web.xml. </strong>Place this file under <strong>WEB-INF </strong>folder. The contents of the file whould like this.</span>
-
-<span style="color: #008000;"><?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?></span>
-
-<span style="color: #008000;"><jboss-web></span>
-
-<span style="color: #008000;">    <resource-ref></span>
-
-<span style="color: #008000;">        <res-ref-name>jdbc/listener-dss</res-ref-name></span>
-
-<span style="color: #008000;">        <res-type>javax.sql.DataSource</res-type></span>
-
-<span style="color: #008000;">        <jndi-name>java:/jdbc/listener-dss</jndi-name></span>
-
-<span style="color: #008000;">    </resource-ref></span>
-
-<span style="color: #008000;"></jboss-web></span>
-
-That&#8217;s all we need to do.
-
-&nbsp;
 
 ~~~~ Ciao.
-
-&nbsp;

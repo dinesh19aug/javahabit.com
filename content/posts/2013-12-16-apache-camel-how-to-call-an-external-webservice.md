@@ -20,8 +20,8 @@ snapIP:
   - 's:252:"a:1:{i:0;a:8:{s:4:"doIP";s:1:"1";s:12:"rpstPostIncl";s:7:"nxsi0ip";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:9:"%EXCERPT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:9:"574571257";s:5:"pDate";s:19:"2015-04-30 22:57:39";}}";'
   - 's:252:"a:1:{i:0;a:8:{s:4:"doIP";s:1:"1";s:12:"rpstPostIncl";s:7:"nxsi0ip";s:11:"SNAPformatT";s:7:"%TITLE%";s:10:"SNAPformat";s:9:"%EXCERPT%";s:11:"isPrePosted";s:1:"1";s:8:"isPosted";s:1:"1";s:4:"pgID";s:9:"574571257";s:5:"pDate";s:19:"2015-04-30 22:57:39";}}";'
 snap_MYURL:
-  - 
-  - 
+  -
+  -
 snapEdIT:
   - 1
   - 1
@@ -48,420 +48,427 @@ I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy,
 
 To cut the story short, I was able to run most of the example but was struggling with <a title="CXF" href="http://cxf.apache.org/" target="_blank">CXF</a> to call a third party service hosted at a random url. The documentation on the website is focused on exposing web service built in <a title="Apache Camel" href="http://camel.apache.org" target="_blank">Camel</a>. I was finally able to figure this out with a couple of slide show on slideshare.
 
-Here&#8217;s the scenario: I have a third party webservice hosted on the web which gives you the the conversion rate between two currencies. I am going to call this web service and log the response.
+Here's the scenario: I have a third party webservice hosted on the web which gives you the the conversion rate between two currencies. I am going to call this web service and log the response.
 
-As usual I will start from scratch. My webservice is hosted at this url &#8211;<a title="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" target="_blank">http://www.webservicex.net/CurrencyConvertor.asmx?WSDL</a>. This webservice exposes a operation called &#8211; &#8220;ConversionRate&#8221;.
+As usual I will start from scratch. My webservice is hosted at this url -<a title="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" target="_blank">http://www.webservicex.net/CurrencyConvertor.asmx?WSDL</a>. This webservice exposes a operation called - &#8220;ConversionRate".
 
-I am using Fuse Ide(free &#8211; Developer version) but you can use Intellij Or Eclipse.
+I am using Fuse Ide(free - Developer version) but you can use Intellij Or Eclipse.
 
-Prerequisites &#8211; Must have Maven.
+Prerequisites - Must have Maven.
 
-**Step 1: **Create a new Camel-Spring project.
+__Step 1:__ Create a new Camel-Spring project.
 
-**Step 2: ** Add the following dependencies in your **pom.xml. &#8220;camel-cxf&#8221;**
+__Step 2:__ Add the following dependencies in your __pom.xml. &#8220;camel-cxf"__
 
-<pre>&lt;scope><span style="color: #ff0000;">&lt;dependency&gt;</span>
+```xml
+<scope><dependency>
 
-<span style="color: #ff0000;">      &lt;groupId&gt;org.apache.camel&lt;/groupId&gt;</span>
+      <groupId>org.apache.camel</groupId>
 
-<span style="color: #ff0000;">      &lt;artifactId&gt;camel-cxf&lt;/artifactId&gt;</span>
+      <artifactId>camel-cxf</artifactId>
 
-<span style="color: #ff0000;">      &lt;version&gt;2.10.0.redhat-60024&lt;/version&gt;</span>
+      <version>2.10.0.redhat-60024</version>
 
-<span style="color: #ff0000;">    &lt;/dependency&gt;</span>&lt;/scope></pre>
+    </dependency></scope>
+```
 
-My pom.xml looks like this &#8211;
+My pom.xml looks like this -
 
-> <span style="color: #ff0000;"><!&#8211;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?></span>
-> 
-> <span style="color: #ff0000;">xmlns=&#8221;http://maven.apache.org/POM/4.0.0&#8243; xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221; xsi:schemaLocation=&#8221;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&#8221;></span>
-> 
-> <span style="color: #ff0000;"> </span>
-> 
-> <span style="color: #ff0000;">  <modelVersion>4.0.0</modelVersion></span>
-> 
-> <span style="color: #ff0000;"> </span>
-> 
-> <span style="color: #ff0000;">  <groupId>com.mycompany</groupId></span>
-> 
-> <span style="color: #ff0000;">  <artifactId>camel-spring</artifactId></span>
-> 
-> <span style="color: #ff0000;">  <packaging>jar</packaging></span>
-> 
-> <span style="color: #ff0000;">  <version>1.0.0-SNAPSHOT</version></span>
-> 
-> <span style="color: #ff0000;">  <name>A Camel Spring Route</name></span>
-> 
-> <span style="color: #ff0000;">  <url>http://www.myorganization.org</url></span>
-> 
-> <span style="color: #ff0000;">  <properties></span>
-> 
-> <span style="color: #ff0000;">    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></span>
-> 
-> <span style="color: #ff0000;">    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding></span>
-> 
-> <span style="color: #ff0000;">  </properties></span>
-> 
-> <span style="color: #ff0000;">  <repositories></span>
-> 
-> <span style="color: #ff0000;">    <repository></span>
-> 
-> <span style="color: #ff0000;">      <id>release.fusesource.org</id></span>
-> 
-> <span style="color: #ff0000;">      FuseSource Release Repository</span>
-> 
-> <span style="color: #ff0000;">      <url>http://repo.fusesource.com/nexus/content/repositories/releases</url></span>
-> 
-> <span style="color: #ff0000;">      <snapshots></span>
-> 
-> <span style="color: #ff0000;">        <enabled>false</enabled></span>
-> 
-> <span style="color: #ff0000;">      </snapshots></span>
-> 
-> <span style="color: #ff0000;">      <releases></span>
-> 
-> <span style="color: #ff0000;">        <enabled>true</enabled></span>
-> 
-> <span style="color: #ff0000;">      </releases></span>
-> 
-> <span style="color: #ff0000;">    </repository></span>
-> 
-> <span style="color: #ff0000;">    <repository></span>
-> 
-> <span style="color: #ff0000;">      <id>snapshot.fusesource.org</id></span>
-> 
-> <span style="color: #ff0000;">      FuseSource Snapshot Repository</span>
-> 
-> <span style="color: #ff0000;">      <url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url></span>
-> 
-> <span style="color: #ff0000;">      <snapshots></span>
-> 
-> <span style="color: #ff0000;">        <enabled>true</enabled></span>
-> 
-> <span style="color: #ff0000;">      </snapshots></span>
-> 
-> <span style="color: #ff0000;">      <releases></span>
-> 
-> <span style="color: #ff0000;">        <enabled>false</enabled></span>
-> 
-> <span style="color: #ff0000;">      </releases></span>
-> 
-> <span style="color: #ff0000;">    </repository></span>
-> 
-> <span style="color: #ff0000;">  </repositories></span>
-> 
-> <span style="color: #ff0000;">  <pluginRepositories></span>
-> 
-> <span style="color: #ff0000;">    <pluginRepository></span>
-> 
-> <span style="color: #ff0000;">      <id>release.fusesource.org</id></span>
-> 
-> <span style="color: #ff0000;">      FuseSource Release Repository</span>
-> 
-> <span style="color: #ff0000;">      <url>http://repo.fusesource.com/nexus/content/repositories/releases</url></span>
-> 
-> <span style="color: #ff0000;">      <snapshots></span>
-> 
-> <span style="color: #ff0000;">        <enabled>false</enabled></span>
-> 
-> <span style="color: #ff0000;">      </snapshots></span>
-> 
-> <span style="color: #ff0000;">      <releases></span>
-> 
-> <span style="color: #ff0000;">        <enabled>true</enabled></span>
-> 
-> <span style="color: #ff0000;">      </releases></span>
-> 
-> <span style="color: #ff0000;">    </pluginRepository></span>
-> 
-> <span style="color: #ff0000;">    <pluginRepository></span>
-> 
-> <span style="color: #ff0000;">      <id>snapshot.fusesource.org</id></span>
-> 
-> <span style="color: #ff0000;">      FuseSource Snapshot Repository</span>
-> 
-> <span style="color: #ff0000;">      <url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url></span>
-> 
-> <span style="color: #ff0000;">      <snapshots></span>
-> 
-> <span style="color: #ff0000;">        <enabled>true</enabled></span>
-> 
-> <span style="color: #ff0000;">      </snapshots></span>
-> 
-> <span style="color: #ff0000;">      <releases></span>
-> 
-> <span style="color: #ff0000;">        <enabled>false</enabled></span>
-> 
-> <span style="color: #ff0000;">      </releases></span>
-> 
-> <span style="color: #ff0000;">    </pluginRepository>  </span>
-> 
-> <span style="color: #ff0000;">  </pluginRepositories></span>
-> 
-> <span style="color: #ff0000;"> </span>
-> 
-> <span style="color: #ff0000;">  <dependencies></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>camel-core</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>camel-spring</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">    <!&#8211; logging &#8211;></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.slf4j</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>slf4j-api</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>1.6.6</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.slf4j</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>slf4j-log4j12</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>1.6.6</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>log4j</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>log4j</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>1.2.17</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">    <!&#8211; testing &#8211;></span>
-> 
-> <span style="color: #ff0000;">    <dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>camel-test-spring</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span>
-> 
-> <span style="color: #ff0000;">      <scope>test</scope></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;"><dependency></span>
-> 
-> <span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span>
-> 
-> <span style="color: #ff0000;">      <artifactId>camel-cxf</artifactId></span>
-> 
-> <span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span>
-> 
-> <span style="color: #ff0000;">    </dependency></span>
-> 
-> <span style="color: #ff0000;">  </dependencies></span>
-> 
-> <span style="color: #ff0000;">  <build></span>
-> 
-> <span style="color: #ff0000;">    <defaultGoal>install</defaultGoal></span>
-> 
-> <span style="color: #ff0000;">    <plugins></span>
-> 
-> <span style="color: #ff0000;">      <plugin></span>
-> 
-> <span style="color: #ff0000;">        <groupId>org.apache.maven.plugins</groupId></span>
-> 
-> <span style="color: #ff0000;">        <artifactId>maven-compiler-plugin</artifactId></span>
-> 
-> <span style="color: #ff0000;">        <version>2.5.1</version></span>
-> 
-> <span style="color: #ff0000;">        <configuration></span>
-> 
-> <span style="color: #ff0000;">          <source>1.6</source></span>
-> 
-> <span style="color: #ff0000;">          <target>1.6</target></span>
-> 
-> <span style="color: #ff0000;">        </configuration></span>
-> 
-> <span style="color: #ff0000;">      </plugin></span>
-> 
-> <span style="color: #ff0000;">      <plugin></span>
-> 
-> <span style="color: #ff0000;">        <groupId>org.apache.maven.plugins</groupId></span>
-> 
-> <span style="color: #ff0000;">        <artifactId>maven-resources-plugin</artifactId></span>
-> 
-> <span style="color: #ff0000;">        <version>2.4.3</version></span>
-> 
-> <span style="color: #ff0000;">        <configuration></span>
-> 
-> <span style="color: #ff0000;">          <encoding>UTF-8</encoding></span>
-> 
-> <span style="color: #ff0000;">        </configuration></span>
-> 
-> <span style="color: #ff0000;">      </plugin></span>
-> 
-> <span style="color: #ff0000;">      <!&#8211; allows the route <span class="hiddenGrammarError">to be</span> ran via &#8216;mvn camel:run&#8217; &#8211;></span>
-> 
-> <span style="color: #ff0000;">      <plugin></span>
-> 
-> <span style="color: #ff0000;">        <groupId>org.apache.camel</groupId></span>
-> 
-> <span style="color: #ff0000;">        <artifactId>camel-maven-plugin</artifactId></span>
-> 
-> <span style="color: #ff0000;">        <version>2.10.0.redhat-60024</version></span>
-> 
-> <span style="color: #ff0000;">      </plugin></span>
-> 
-> <span style="color: #ff0000;">    </plugins></span>
-> 
-> <span style="color: #ff0000;">  </build></span>
-> 
-> <span style="color: #ff0000;"></project></span>
+```xml
 
-**Step 2: **Under src/main.resources/META-INF folder(if not there then create one) create file called **camel-context.xml. ** Your camel file should like this &#8211;
+<!-?xml version="1.0" encoding="UTF-8"?>
 
-> <span style="color: #ff0000;"><?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?></span>
-> 
-> <span style="line-height: 1.5; color: #ff0000;">xmlns=&#8221;http://www.springframework.org/schema/beans&#8221;</span>
-> 
-> <span style="color: #ff0000;">        xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;</span>
-> 
-> <span style="color: #ff0000;">        xmlns:cxf=&#8221;http://camel.apache.org/schema/cxf&#8221;</span>
-> 
-> <span style="color: #ff0000;">        xsi:schemaLocation=&#8221;</span>
-> 
-> <span style="color: #ff0000;">        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span>
-> 
-> <span style="color: #ff0000;">        http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd</span>
-> 
-> <span style="color: #ff0000;">        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd&#8221;></span>
-> 
-> <span style="color: #ff0000;"> <span style="line-height: 1.5;"> <cxf:<span class="hiddenSpellError">cxfEndpoint id=&#8221;wsdlEndpoint&#8221;</span></span></span>
-> 
-> <span style="color: #ff0000;">                     address=&#8221;http://www.webservicex.net/CurrencyConvertor.asmx&#8221;</span>
-> 
-> <span style="color: #ff0000;">                     endpointName=&#8221;c:SOAPOverHTTP&#8221;</span>
-> 
-> <span style="color: #ff0000;">                     serviceName=&#8221;c:CurrencyConvertor&#8221;</span>
-> 
-> <span style="color: #ff0000;">                     xmlns:s=&#8221;http://www.webserviceX.NET&#8221;/></span>
-> 
-> <span style="color: #ff0000;">  </span>
-> 
-> <span style="color: #ff0000;">  <camelContext xmlns=&#8221;http://camel.apache.org/schema/spring&#8221;></span>
-> 
-> <span style="color: #ff0000;">  <route></span>
-> 
-> <span style="color: #ff0000;">        here is a sample which processes the input files</span>
-> 
-> <span style="color: #ff0000;">         (leaving them in place &#8211; see the &#8216;noop&#8217; flag)</span>
-> 
-> <span style="color: #ff0000;">         then performs content based routing on the message using XPath</description></span>
-> 
-> <span style="color: #ff0000;">        src/data/order?noop=true&#8221;/></span>
-> 
-> <span style="color: #ff0000;">        <log message=&#8221;${body}&#8221;/></span>
-> 
-> <span style="color: #ff0000;">        wsdl&serviceName={http://www.webserviceX.NET/}CurrencyConvertor&portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&dataFormat=MESSAGE&#8221;/></span>
-> 
-> <span style="color: #ff0000;">         <log message=&#8221;${body}&#8221;/></span>
-> 
-> <span style="color: #ff0000;">    </route></span>
-> 
-> <span style="color: #ff0000;"></camelContext></span>
-> 
-> <span style="color: #ff0000;"> </span>
-> 
-> <span style="color: #ff0000;"></beans></span>
+ xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-**Step 4: **Place the payload or input data xml in src/data/input/order.xml. The **order.xml **should like this &#8211;
+  
 
-> <span style="color: #ff0000;"><soapenv:Envelope xmlns:soapenv=&#8221;http://schemas.xmlsoap.org/soap/envelope/&#8221; xmlns:web=&#8221;http://www.webserviceX.NET/&#8221;></span>
-> 
-> <span style="color: #ff0000;">   <soapenv:Header/></span>
-> 
-> <span style="color: #ff0000;">   <soapenv:Body></span>
-> 
-> <span style="color: #ff0000;">      <web:ConversionRate></span>
-> 
-> <span style="color: #ff0000;">         <web:FromCurrency>AUD</web:FromCurrency></span>
-> 
-> <span style="color: #ff0000;">         <web:ToCurrency>USD</web:ToCurrency></span>
-> 
-> <span style="color: #ff0000;">      </web:ConversionRate></span>
-> 
-> <span style="color: #ff0000;">   <!&#8211;<span class="hiddenSpellError">soapenv</span>:Body>&#8211;></span>
-> 
-> <span style="color: #ff0000;"><!&#8211;<span class="hiddenSpellError">soapenv</span>:Envelope>&#8211;></span>
+   <modelVersion>4.0.0</modelVersion>
 
-That&#8217;s it!!!!
+  
 
-<span style="color: #000000;">The interesting part is all in the camel-context.xml. Here&#8217;s what is happening in this file</span>
+   <groupId>com.mycompany</groupId>
 
-**src/data/order?noop=true&#8221;/>**
+   <artifactId>camel-spring</artifactId>
+
+   <packaging>jar</packaging>
+
+   <version>1.0.0-SNAPSHOT</version>
+
+   <name>A Camel Spring Route</name>
+
+   <url>http://www.myorganization.org</url>
+
+   <properties>
+
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+   </properties>
+
+   <repositories>
+
+     <repository>
+
+      <id>release.fusesource.org</id>
+
+       FuseSource Release Repository
+
+       <url>http://repo.fusesource.com/nexus/content/repositories/releases</url>
+
+       <snapshots>
+
+         <enabled>false</enabled>
+
+       </snapshots>
+
+       <releases>
+
+         <enabled>true</enabled>
+
+       </releases>
+
+     </repository>
+
+     <repository>
+
+       <id>snapshot.fusesource.org</id>
+
+       FuseSource Snapshot Repository
+
+       <url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url>
+
+       <snapshots>
+
+         <enabled>true</enabled>
+
+       </snapshots>
+
+       <releases>
+
+         <enabled>false</enabled>
+
+       </releases>
+
+     </repository>
+
+   </repositories>
+
+   <pluginRepositories>
+
+     <pluginRepository>
+
+       <id>release.fusesource.org</id>
+
+       FuseSource Release Repository
+
+       <url>http://repo.fusesource.com/nexus/content/repositories/releases</url>
+
+       <snapshots>
+
+         <enabled>false</enabled>
+
+       </snapshots>
+
+       <releases>
+
+         <enabled>true</enabled>
+
+       </releases>
+
+     </pluginRepository>
+
+     <pluginRepository>
+
+       <id>snapshot.fusesource.org</id>
+
+       FuseSource Snapshot Repository
+
+       <url>http://repo.fusesource.com/nexus/content/repositories/snapshots</url>
+
+       <snapshots>
+
+         <enabled>true</enabled>
+
+       </snapshots>
+
+       <releases>
+
+         <enabled>false</enabled>
+
+       </releases>
+
+     </pluginRepository>  
+
+   </pluginRepositories>
+
+  
+
+   <dependencies>
+
+     <dependency>
+
+       <groupId>org.apache.camel</groupId>
+
+       <artifactId>camel-core</artifactId>
+
+       <version>2.10.0.redhat-60024</version>
+
+     </dependency>
+
+     <dependency>
+
+       <groupId>org.apache.camel</groupId>
+
+       <artifactId>camel-spring</artifactId>
+
+       <version>2.10.0.redhat-60024</version>
+
+     </dependency>
+
+     <!- logging ->
+
+     <dependency>
+
+       <groupId>org.slf4j</groupId>
+
+       <artifactId>slf4j-api</artifactId>
+
+       <version>1.6.6</version>
+
+     </dependency>
+
+     <dependency>
+
+       <groupId>org.slf4j</groupId>
+
+       <artifactId>slf4j-log4j12</artifactId>
+
+       <version>1.6.6</version>
+
+     </dependency>
+
+     <dependency>
+
+       <groupId>log4j</groupId>
+
+       <artifactId>log4j</artifactId>
+
+       <version>1.2.17</version>
+
+     </dependency>
+
+     <!- testing ->
+
+     <dependency>
+
+       <groupId>org.apache.camel</groupId>
+
+       <artifactId>camel-test-spring</artifactId>
+
+       <version>2.10.0.redhat-60024</version>
+
+       <scope>test</scope>
+
+     </dependency>
+
+ <dependency>
+
+       <groupId>org.apache.camel</groupId>
+
+       <artifactId>camel-cxf</artifactId>
+
+       <version>2.10.0.redhat-60024</version>
+
+     </dependency>
+
+   </dependencies>
+
+   <build>
+
+     <defaultGoal>install</defaultGoal>
+
+     <plugins>
+
+       <plugin>
+
+         <groupId>org.apache.maven.plugins</groupId>
+
+         <artifactId>maven-compiler-plugin</artifactId>
+
+         <version>2.5.1</version>
+
+         <configuration>
+
+           <source>1.6</source>
+
+           <target>1.6</target>
+
+         </configuration>
+
+       </plugin>
+
+       <plugin>
+
+         <groupId>org.apache.maven.plugins</groupId>
+
+         <artifactId>maven-resources-plugin</artifactId>
+
+         <version>2.4.3</version>
+
+         <configuration>
+
+           <encoding>UTF-8</encoding>
+
+         </configuration>
+
+       </plugin>
+
+       <!- allows the route to be ran via mvn camel:run ->
+
+       <plugin>
+
+         <groupId>org.apache.camel</groupId>
+
+         <artifactId>camel-maven-plugin</artifactId>
+
+         <version>2.10.0.redhat-60024</version>
+
+       </plugin>
+
+     </plugins>
+
+   </build>
+
+ </project>
+```
+__Step 2:__ Under src/main.resources/META-INF folder(if not there then create one) create file called __camel-context.xml__ Your camel file should like this -
+
+```xml
+ <?xml version="1.0" encoding="UTF-8"?>
+
+ xmlns="http://www.springframework.org/schema/beans"
+
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+         xmlns:cxf="http://camel.apache.org/schema/cxf"
+
+         xsi:schemaLocation="
+
+         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+
+         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+ <cxf:<span class="hiddenSpellError">cxfEndpoint id="wsdlEndpoint"
+
+                      address="http://www.webservicex.net/CurrencyConvertor.asmx"
+
+                      endpointName="c:SOAPOverHTTP"
+
+                      serviceName="c:CurrencyConvertor"
+
+                      xmlns:s="http://www.webserviceX.NET"/>
+
+   
+
+   <camelContext xmlns="http://camel.apache.org/schema/spring">
+
+   <route>
+
+         here is a sample which processes the input files
+
+          (leaving them in place - see the &#8216;noop' flag)
+
+          then performs content based routing on the message using XPath</description>
+
+         src/data/order?noop=true"/>
+
+         <log message="${body}"/>
+
+         wsdl&serviceName={http://www.webserviceX.NET/}CurrencyConvertor&portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&dataFormat=MESSAGE"/>
+
+          <log message="${body}"/>
+
+     </route>
+
+ </camelContext>
+
+  
+
+ </beans>
+```
+__Step 4:__ Place the payload or input data xml in src/data/input/order.xml. The __order.xml__ should like this -
+```xml
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:web="http://www.webserviceX.NET/">
+
+    <soapenv:Header/>
+
+    <soapenv:Body>
+
+       <web:ConversionRate>
+
+          <web:FromCurrency>AUD</web:FromCurrency>
+
+          <web:ToCurrency>USD</web:ToCurrency>
+
+       </web:ConversionRate>
+
+    <!-<span class="hiddenSpellError">soapenv:Body>->
+
+</soapenv:Envelope>
+```
+
+That's it!!!!
+The interesting part is all in the camel-context.xml. Here's what is happening in this file
+
+> src/data/order?noop=true"/>
 
 This line reads the file order.xml. The option noop=true makes the file to be read again and again. By default this values is false. If this value is false, then after one read, camel marks it as read and when you run the example for second time, it will not read this file.
 
-**<log message=&#8221;${body}&#8221;/>**
+> <log message="${body}"/>
 
-This line will simply log the contents of **order.xml.**
+This line will simply log the contents of __order.xml.__
 
-**serviceName={http://www.webserviceX.NET/}CurrencyConvertor&portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&dataFormat=MESSAGE&#8221;/>**
+>serviceName={http://www.webserviceX.NET/}CurrencyConvertor&portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&dataFormat=MESSAGE"/>
 
-** **This line tells **cxf **component that it needs to call the webservice &#8211;  **http://www.webservicex.net/CurrencyConvertor.asmx?wsdl**
+This line tells __cxf__ component that it needs to call the webservice -  
+>http://www.webservicex.net/CurrencyConvertor.asmx?wsdl
 
--URL &#8211; is the url of the wsdl **http://www.webservicex.net/CurrencyConvertor.asmx?wsdl**
+-URL - is the url of the wsdl 
+>http://www.webservicex.net/CurrencyConvertor.asmx?wsdl
 
-  * serviceName &#8211; is the name of the service. Remember it is the name of teh service not the oepration!! The value between {} is the namespace. If you do not want to write {http://&#8230;.} then add another tag **xmlns   **&#8211; **{http://www.webserviceX.NET/}CurrencyConvertor. **
-  * portName &#8211; is the name of the port.
+>   serviceName - is the name of the service. Remember it is the name of teh service not the oepration!! The value between {} is the namespace. If you do not want to write {http://&#8230;.} then add another tag_xmlns >  {http://www.webserviceX.NET/}CurrencyConvertor. 
+>   portName - is the name of the port.
 
-**portName={http://www.webserviceX.NET/}CurrencyConvertorSoap. **This is again preceded by {http://&#8230;} which is the namespace value. This value is defined in the wsdl as &#8211;**<wsdl:port name=&#8221;CurrencyConvertorSoap&#8221; binding=&#8221;tns:CurrencyConvertorSoap&#8221;>**
+> portName={http://www.webserviceX.NET/}CurrencyConvertorSoap. This is again preceded by {http://&#8230;} which is the namespace value. This value is defined in the wsdl as -<wsdl:port name="CurrencyConvertorSoap" binding="tns:CurrencyConvertorSoap">
 
-The last piece is **dataFormat ** &#8211; **dataFormat=MESSAGE. **This tells that the body is of type message.
+The last piece is __dataFormat__ - __dataFormat=MESSAGE__ This tells that the body is of type message.
 
-**Part 2** &#8211; In production you would want to avoid writing cxf in the above format as it is prone to error because the string value is very long and difficult to test independently and cannot be reused if you want to call the service in another route. So the best way is to define this as cxf endpoint. All you need to do is slighly modify the **camel-context.xml. **
+__Part 2__ - In production you would want to avoid writing cxf in the above format as it is prone to error because the string value is very long and difficult to test independently and cannot be reused if you want to call the service in another route. So the best way is to define this as cxf endpoint. All you need to do is slightly modify the __camel-context.xml__
 
-  1. Add this(be sure to remove the earlier version of <to uri=&#8221;cxf&#8230;.&#8221;)
+  1. Add this(be sure to remove the earlier version of <to uri="cxf&#8230;.")
 
-**<to uri=&#8221;cxf:bean:wsdlEndpoint?dataFormat=MESSAGE&#8221;/>**
+> <to uri="cxf:bean:wsdlEndpoint?dataFormat=MESSAGE"/>
 
-  1. Define the cxf endpoint called **wsdlEndpoint** (You call it whatever you want).
+  1. Define the cxf endpoint called __wsdlEndpoint__ (You call it whatever you want).
+```xml
+ <cxf:<span class="hiddenSpellError">cxfEndpoint id="wsdlEndpoint"
 
-**<cxf:<span class="hiddenSpellError">cxfEndpoint id=&#8221;wsdlEndpoint&#8221;</span>**
+                     address="http://www.webservicex.net/CurrencyConvertor.asmx"
 
-**                     address=&#8221;http://www.webservicex.net/CurrencyConvertor.asmx&#8221;**
+                     endpointName="c:SOAPOverHTTP"
 
-**                     endpointName=&#8221;c:SOAPOverHTTP&#8221;**
+                     serviceName="c:CurrencyConvertor"
 
-**                     serviceName=&#8221;c:CurrencyConvertor&#8221;**
-
-**                     xmlns:s=&#8221;http://www.webserviceX.NET&#8221;/>**
-
-That&#8217;s it.
+                     xmlns:s="http://www.webserviceX.NET"/>
+```
+That's it.
 
 Now just run the app. This will print the following-
-
-> [ead #0 &#8211; file://src/data/order] route1                         INFO
+```xml
+ [ead #0 - file://src/data/order] route1                         INFO
 
 <soapenv:Header/>
 
@@ -475,10 +482,10 @@ Now just run the app. This will print the following-
 
 </web:ConversionRate>
 
-<!&#8211;<span class="hiddenSpellError">soapenv</span>:Body>&#8211;>
+</soapenv:Body>->
 
-<!&#8211;<span class="hiddenSpellError">soapenv</span>:Envelope>&#8211;>
+</soapenv:Envelope>->
 
-[           default-workqueue-1] route1                         INFO  <!--?xml version="1.0" encoding="utf-8"?-->0.8951
 
-~~~~ Enjoy Cameling &#8230;.
+```
+~ Enjoy Cameling &#8230;.

@@ -13,7 +13,7 @@ keywords:
   - multiple linear regression
   - linear regression
   - scikit, matpyplot
-  
+
 description: Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the basics of exploring the data set and predicting the result using multiple linear regression.
 categories:
   - Tech Notes

@@ -29,11 +29,11 @@ In the [previous post](http://www.javahabit.com/2019/02/10/part-6-ml-svr/), we l
 - [Decision tree notebook](https://github.com/dinesh19aug/ml-notes/blob/master/Part-7-decision-tree/decisionTree.ipynb)
 
 ### What is a "Decision Tree"'"?
-![decsionTree](/resources/img/decision/decisionTree.PNG)
 
+![decsionTree](/images/decision/decisionTree.PNG)
 >A Decision tree builds regression or classification models in the form of tree structure. It is a set of 'yes' or 'no' flow, which cascades downward like an upside down tree. For example, given a set of independent variables or features about a person, can we find if the person is healthy.  
 
-![sampleTree.PNG](/resources/img/decision/sampleTree.PNG)
+![sampleTree.PNG](/images/decision/sampleTree.PNG)
 
 
 ### Parts of decision Tree
@@ -46,14 +46,14 @@ To build a tree, we need to start with an *Independent Feature* as a root node. 
 
 ### Can we just start with any random feature as the root node?
 This is a million $$$ question here. This is the meat of the whole algorithm. Let's look at our business problem about the problem that people of *Falkland* are facing. We need to come up with a solution to spot the king when he is disguised to save the common man from mistreating him accidentally and hence punished in return. Here's the data that we have collected about people leaving the castle.
-![falkland.PNG](/resources/img/decision/falkland.PNG)
+![falkland.PNG](/images/decision/falkland.PNG)
 
 > Ok! So we have the data, but how do we find out which feature will be the root node?   
 
 Going back to our previous [post](http://www.javahabit.com/2019/02/10/part-5-ml-mltr-backward-elimination/) on [__Backward Elimination__](http://www.javahabit.com/2019/02/10/part-5-ml-mltr-backward-elimination/), we can gather that the root node should be a feature which is the most important feature in making the decision. To find the most important feature, we will align each independent feature with dependent feature (*Is_King*).
 
-![featuremap.PNG](/resources/img/decision/featuremap.PNG)
-![featureMap2.PNG](/resources/img/decision/featureMap2.PNG)
+![featuremap.PNG](/images/decision/featuremap.PNG)
+![featureMap2.PNG](/images/decision/featureMap2.PNG)
 
 
 If we look at the above mapping, we will see that **Gold_Tooth** feature is right most of the time in predicting the king, followed by the **castle** as it has the least number of false positive.
@@ -66,7 +66,7 @@ Yes, the distinction between the two is difficult to figure out. Both __Greedy__
 Entropy means how many times information changed that we got a positive result. Imagine if the king never left the castle, which means that all the information that we collected will show __Is_King__ as **0**. In our case, the entropy is **1** because anybody could be the king. If we just had **Castle** as the feature, predicting the king would be difficult without another piece of information.
 >So in simple terms __Entropy__ is how many pieces of the data point(*Independent feature*) is required, to guess the *Dependent variable* - *Is_King*__
 
-![falklandResult.PNG](/resources/img/decision/falklandResult.PNG)
+![falklandResult.PNG](/images/decision/falklandResult.PNG)
 
 To further explain. Let's say that instead of starting with **Gold_tooth** as the root node, we start with the **castle**. We will see that we are able to find the king only __3/10__ times. On top of that, the left side gives very poor results. Just __1/5__ or __20%__.
 
@@ -85,12 +85,12 @@ Just remember the 3 golden rules to avoid overfitting:
 
 Here's a refined version of the tree.
 
-![refinedTree.PNG](/resources/img/decision/refinedTree.PNG)
+![refinedTree.PNG](/images/decision/refinedTree.PNG)
 
 ### Would this model work on non-categorical or continuous values?
 Absolultely!! The splitting rules would still apply as I mentioned above.
 
-![spli1.PNG](/resources/img/decision/spli1.PNG)
+![spli1.PNG](/images/decision/spli1.PNG)
 
 So each Split is a leaf node above. Imagine if we wanted to find the dependent variable __Y__ whose independent partners __X1__ and __X2__ are __10__ and __150__, then it would land in the first node as __300.5__.
 
@@ -100,7 +100,7 @@ The value 300.5 is the average of all the data points in that box.
 > **Pay attention and read the previous 2 lines again.** The last two lines will help you understand why we need to divide it into different leaves and nodes. If you do not have splits, then the only option is to take the average of the **ALL** the data points!! The accuracy would be nowhere close to your expectation and would be same all values of X1 and X2.
 
 
-![split2.PNG](/resources/img/decision/split2.PNG)
+![split2.PNG](/images/decision/split2.PNG)
 
 ### Python Implementation
 We are going to take a standard dataset called IRIS Dataset
@@ -108,7 +108,7 @@ We are going to take a standard dataset called IRIS Dataset
 
 In layman terms, it is a set of data points about IRIS flower where we have the information about the length and the width of sepals and petals about 3 varieties.
 
-![iris.PNG](/resources/img/decision/iris.PNG)
+![iris.PNG](/images/decision/iris.PNG)
 
 __Step 1:__ Get the common imports
 
@@ -259,7 +259,7 @@ dataset.dtypes
 
 
 
-![iris_sample.PNG](/resources/img/decision/iris_sample.PNG)
+![iris_sample.PNG](/images/decision/iris_sample.PNG)
 
 __Step 4:__ Load the Iris data and create the X and Y variables
 
@@ -310,7 +310,7 @@ plt.show()
     <Figure size 432x288 with 0 Axes>
 
 
-![iris-plot.PNG](/resources/img/decision/iris-plot.PNG)
+![iris-plot.PNG](/images/decision/iris-plot.PNG)
 
 **Step 6:** Encode the value of Flower types
 The values of dependent the variable needs to be encoded to numbers as they are categorical values
@@ -383,7 +383,7 @@ Image(graph.create_png())
 ```
 
 
-![tree.PNG](/resources/img/decision/tree.PNG)
+![tree.PNG](/images/decision/tree.PNG)
 
 As you can see, that since we did not provide a maximum depth of the tree, it created a complex tree of 6 layers and hence for our model we are getting 100% accuracy. This means that the model is an **overfitted model**.
 
@@ -418,7 +418,7 @@ tree.export_graphviz(regressor, out_file=dot_data)
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
 Image(graph.create_png())
 
-![tree_fix.PNG](/resources/img/decision/tree_fix.PNG)
+![tree_fix.PNG](/images/decision/tree_fix.PNG)
 ```
 
 So keep climbing the tree of success with this DecisionTree regression model. In the next series, we will see how to use a kind of decision tree called Random forest regression.

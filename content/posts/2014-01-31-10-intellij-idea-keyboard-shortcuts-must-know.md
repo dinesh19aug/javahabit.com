@@ -22,9 +22,9 @@ I am sharing my 10 most used shortcuts at work.
 
 You will often run into situation where you need to add debug statement temporarily and remove or comment the line after the debug is complete. Instead of manually going to the beginning of the line and manually typing //, you can use the keyboard shortcut **CTRL + L**. A cool thing to know is that you can comment out multiple lines at once. <img class="alignnone" src="http://www.javahabit.com/wp-content/uploads/2014/01/156.png" alt="" width="553" height="89" />
 
-&nbsp;
 
-&nbsp;
+
+
 
 **2. Documentation Comment Block : /** + Enter**
 
@@ -36,17 +36,17 @@ To compare the difference, I have commented the same code using **CTRL+L **and�
 
 ![][3]
 
-&nbsp;
 
-&nbsp;
+
+
 
 **3. Delete Line : CTRL + Y**
 
 This one is easy. If you have any vim experience or have used sublime text in the past then this would come easy. Simply place the cursor on the beginning of the line and hit **CTRL + Y.** Now it might not seem intuitive because the obvious choice of deleting should have been **CTRL** **+ D **(_It actually adds a new line if you wondered what it does_) but a cool way to remember is to think about confirmation dialog boxes in Unix. For example &#8211; Are you sure you want to delete this folder? (Y/N)
 
-&nbsp;
 
-&nbsp;
+
+
 
 **4. Argument Documentation For Method Calls: CTRL + P**
 
@@ -54,9 +54,9 @@ This one is a true life saver. Imagine you are about to call method which accept
 
 ![][4]
 
-&nbsp;
 
-&nbsp;
+
+
 
 **5. Continuous Code Selection: CTRL + W**
 
@@ -64,9 +64,6 @@ Raise your hand if you never had to copy paste the code. Any one? This shortcut 
 
 ![][5]
 
-&nbsp;
-
-&nbsp;
 
 **6. Paste from history: CTRL + V + Shift**
 
@@ -74,40 +71,21 @@ A lot of time I copy and paste code. Sometimes I open multiple projects and file
 
 <img class="alignnone size-full wp-image-692" src="http://www.javahabit.com/wp-content/uploads/2014/02/img_52f1a6ac20ecb.png" alt="" />
 
-&nbsp;
-
-&nbsp;
 
 **7. Last Changed files: CTRL + SHIFT + E**
-
 I used [SVN][6] at work and [git][7] or [Bazaar][8] for my personal project. At times when I am not using either it can be hard to track and remember what files did I change in last 1-2 hours. Usually if you are using [SVN][6] then you can see uncommitted files to figure out the file changes. However how do you track the files that changed in the last one hour if you are not using SVN or git or mercurial tools. It turns out that [IntelliJ][9] keeps a track of your recent file changes. You can just use the shortcut CTRL + SHIFT + E to see the last edited files.
 
 <img class="alignnone size-full wp-image-693" src="http://www.javahabit.com/wp-content/uploads/2014/02/img_52f1a968ebd4f.png" alt="" />
 
-&nbsp;
-
-&nbsp;
-
 **8. File Structure popup: CTRL + F12**
-
 This shortcut comes in handy if you are traversing through a huge file looking for a particular method name. You can either do CTRL + F to search for the method name. But at times you may not remember the name of the method or are not sure what methods or members are present in that file. In that case you use this shortcut.
 
 <img class="alignnone size-full wp-image-694" src="http://www.javahabit.com/wp-content/uploads/2014/02/img_52f1aafa1a786.png" alt="" />
 
-&nbsp;
-
-&nbsp;
-
 **9. Evaluate Expression : ALT + F8**
-
 This is one feature that comes in handy in the debug mode. This features allows you to quickly test the output of an expression. For ex &#8211; Say I have a method that accepts a number from user and adds 2. When you are in debug mode and need to test a program that is already running need to figure out what would happen if I add 290.756 instead of adding 2, then you would normally have to make code a change or rerun the program. Some IDEs let you do hot deploy while some do not also in a large project this restart and change may take up long time to test one expression. This is when you can use this shortcut to quickly test different expressions without restarting or making a code change. <img class="alignnone size-full wp-image-695" src="http://www.javahabit.com/wp-content/uploads/2014/02/img_52f1bad77d359.png" alt="" />
 
-&nbsp;
-
-&nbsp;
-
 **10. System.out.println() : sout + tab**
-
 I kept the easiest and most used shortcut as the last piece. This is not really a shortcut but when I was looking for a way to avoid typing this verbose piece of code, I was surprised to see that many people did not know this fact. Unlike <a title="Netbeans" href="https://netbeans.org/" target="_blank">Netbeans</a> or <a title="Eclipse" href="https://www.eclipse.org/" target="_blank">Eclipse</a> where you can specify shortcut for commonly used text, I could not find this option in IntelliJ until I found the solution in <a title="Stackoverflow" href="http://stackoverflow.com/" target="_blank">SO</a>. Just type **sout **and hit TAB to print out the complete text. ~Ciao &#8230; Enjoy the shortcuts and more.
 
 > P.S. &#8211; If you liked the post please click on one of the ads in the right hand column to help me maintain this site and do drop a me a line to suggest some topics that would like to see on this site.
