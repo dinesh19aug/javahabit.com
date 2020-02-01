@@ -1,5 +1,5 @@
-logoText = "A Morsel Of Code - One Byte At A Time"
-logoType = "long" # long, short
+logoText = "Home"
+logoType = "short" # long, short
 description = "A Morsel Of Code - One Byte At A Time"
 custom_css = []
 custom_js = []
@@ -15,7 +15,7 @@ notAllowedTypesInArchive = ["about", "talks", "showcase"]
 homeHeaderType = "text" # text, img, slide
 
 # body
-enableBreadcrumb = true
+enableBreadcrumb = false
 enablePhotoSwipe = true
 enableSearch = true
 enableSearchHighlight = true
@@ -54,7 +54,7 @@ itemsPerCategory = 5
 sidebarPosition = "right"
 
 # footer
-showPoweredBy = true
+#showPoweredBy = true
 showFeedLinks = true
 showSocialLinks = true
 enableLangChange = false

@@ -2,7 +2,7 @@
   identifier = "about"
   name = "About"
   url = "about"
-  weight = 1
+  weight = 4
 
 [[main]]
   identifier = "archive"
@@ -16,30 +16,36 @@
   url = "pt"
   weight = 3
 
-[[main]]
-  identifier = "gallery"
-  name = "Gallery"
-  url = "gallery"
-  weight = 4
-    
-[[main]]
-  parent = "gallery"
-  name = "Cartoon"
-  url = "gallery/cartoon"
+#[[main]]
+#  identifier = "gallery"
+#  name = "Gallery"
+#  url = "gallery"
+#  weight = 4
 
-[[main]]
-  parent = "gallery"
-  name = "Photo"
-  url = "gallery/photo"
+#[[main]]
+#  parent = "gallery"
+#  name = "Cartoon"
+#  url = "gallery/cartoon"
+
+#[[main]]
+#  parent = "gallery"
+#  name = "Photo"
+#  url = "gallery/photo"
 
 [[main]]
   identifier = "posts"
   name = "Posts"
-  url = "posts"
-  weight = 5
+  url = "/"
+  weight = 1
+
+#[[main]]
+#  identifier = "showcase"
+#  name = "Showcase"
+#  url = "showcase"
+#  weight = 6
 
 [[main]]
-  identifier = "showcase"
-  name = "Showcase"
-  url = "showcase"
-  weight = 6
+  identifier = "talks"
+  name = "Series"
+  url = "talks"
+  weight = 5
