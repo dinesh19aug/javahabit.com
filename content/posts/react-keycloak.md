@@ -1,6 +1,4 @@
 ---
-draft: true
-
 title: "Securing React Apps with Keycloak: A Comprehensive Guide"
 image: "/resources/img/keycloak/keycloak.jpeg"
 date: 2023-03-14T22:46:04-04:00
