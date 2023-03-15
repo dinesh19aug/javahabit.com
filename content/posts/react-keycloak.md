@@ -15,7 +15,7 @@ keywords:
   - npm
 categories:
   - Tech Notes
-description: Understanding how Resilience4j ringbit buffer works, is the key to understanding the internal working of [Resilience4j](https://resilience4j.readme.io/) circuit breaker state change. If you don't know this then you are missing how the buffer counts and hence you will fall into the trap of missing open/close counts in the logs.
+description: Creating a login page is the one of the first things you need when creating a website. However, you dont have to struggle trying to create the schema from scratch. Keycloak is one such tool that provides functionalities such as user management, social logins and much more.
 ---
 
 {{< featuredImage alt="featured image" >}}
