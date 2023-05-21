@@ -15,7 +15,7 @@ categories:
   - Tech Notes
 description: Discover how MirageJS empowers developers with realistic mock APIs for efficient API testing and frontend development. This comprehensive guide provides step-by-step instructions and a practical code example, showcasing how MirageJS enhances your development workflow. Learn how to create mock APIs, customize responses, and seamlessly integrate MirageJS into your testing process. Supercharge your API testing and frontend development with MirageJS today.
 ---
-
+{{< featuredImage alt="featured image" >}}
 API testing and frontend development often rely on mock APIs to simulate backend behavior. MirageJS is an excellent tool that simplifies the creation of realistic mock APIs for JavaScript applications. In this blog post, we will explore the features and benefits of MirageJS through a practical example. By the end, you'll have a clear understanding of how MirageJS can enhance your development workflow.
 
 ## What is MirageJS?
