@@ -1,7 +1,7 @@
 ---
 title: "Git Commit Undo: Mastering Soft and Hard Resets for Local Commits"
 date: 2023-09-20T20:58:19-04:00
-image: "/resources/img/gitreset/gitopps.png"
+image: "/resources/img/gitreset/gitopps.jpeg"
 author: Dinesh Arora
 type: post
 url: /2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/
