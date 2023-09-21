@@ -4,161 +4,219 @@ date: 2023-09-20T20:58:19-04:00
 author: Dinesh Arora
 type: post
 url: /how-to-undo-local-git-commits-soft-vs-hard-reset
-image: "/resources/img/gitopps.png"
+image: "/resources/img/maven-plugin.jpg"
 keywords:
-  - Git reset  commands
-  - Undo Git commit
-  - Soft reset vs. hard reset
-  - Git commit management
-  - Version control with Git
-  - Git tutorial
-  - Git best practices
-  - Local commit management
-  - Git development workflow
-  - GitHub repository management
-  - Git undo changes
-  - Effective Git commits
-  - Code version control
-  - Mastering Git reset
-  - Developer's Git toolkit
+  - Maven plugin development
+  - Custom Maven plugin tutorial
+  - Counting project dependencies in Maven
+  - Dependency analysis with Maven plugin
+  - Building Maven plugins
+  - Java programming with Maven
+  - Maven plugin examples
+  - Software build automation
+  - Effective project management with Maven
+  - Java development best practices
+  - Software engineering tutorials
+  - Maven architecture and plugins
+  - Software development tools
+  - Maven plugin for dependency tracking
+  - Maven project optimization
 categories:
   - Tech Notes
-description: Unlock Git Mastery - How to Undo Local Commits (Soft vs. Hard Reset). Discover the essential Git skills you need to undo local commits effectively. Learn the difference between soft and hard resets and when to choose each. Boost your Git proficiency with this comprehensive guide!.
+description: Learn how to create a custom Maven plugin to effortlessly count project dependencies. Dive into step-by-step guidance and code examples to streamline your development process. Master the art of dependency management with this comprehensive tutorial.
 ---
 
 {{< featuredImage alt="featured image" >}}
-Hey there, fellow developer! Ever committed something to Git and thought, "Oops, I need to take that back!"? We've all been there. The good news is that Git provides us with the tools to undo those local commits without a hassle. In this post, we'll explore why you might want to undo local commits and walk through the steps, including soft and hard resets, with real code samples.
+Creating a custom Maven plugin to count the number of dependencies in a project can be a useful addition to your build process, especially when you want to keep track of your project's dependencies. Below, I'll provide a step-by-step guide along with detailed code examples to help you achieve this.
 
-{{< youtube ZGO5BgZIXRg >}}
+{{< youtube 11YgSprg03M >}}
 
 {{< alert theme="info" dir="ltr" >}}
 
-## Use Case: The Oops Moment
+## Step 1: Project Setup
 
 {{< /alert >}}
-Imagine this common scenario: you're working on your latest project, happily making progress and committing changes along the way. Then, suddenly, you realize that your last commit was a premature one. Maybe you included a file you didn't mean to, or perhaps you discovered a bug right after committing. It happens, right?
+
+First, ensure you have Maven installed on your system. You can check this by running __mvn -version__ in your terminal.
+
+Now, create a new Maven project or use an existing one where you want to add this custom plugin. For demonstration purposes, let's create a new Maven project named "DependencyCounterPluginDemo
 
 That's when the need to undo local Git commits arises. We want to rewind the clock and make things right. Let's dig into how you can do that.
 
-{{< alert theme="info" dir="ltr" >}}
+```java
+mvn archetype:generate -DgroupId=com.example -DartifactId=DependencyCounterPluginDemo -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
-## Soft Reset: When You Want to Keep Your Changes
-
-{{< /alert >}}
-
-### Use Case: Soft Reset
-
-**Soft reset** is your go-to when you want to keep your changes from the undone commit staged in your working directory. It allows you to review and possibly modify the changes before committing again.
-
-Here's how you do a soft reset:
-{{< codes javascript >}}
-{{< code >}}
-
-```javascript
-$ git reset --soft HEAD~1
 ```
 
-{{< /code >}}
+Change into your project directory:
 
-{{< /codes >}}
+```java
+cd DependencyCounterPluginDemo
 
-In this command, **HEAD~1** refers to the commit you want to undo. It moves the HEAD pointer back to the previous commit, effectively "uncommitting" your last change. Your changes remain staged and ready for editing.
+```
 
 {{< alert theme="info" dir="ltr" >}}
 
-## Hard Reset: When You Want to Start Fresh
+## Step 2: Define the Plugin in pom.xml
 
 {{< /alert >}}
 
-### Use Case: Hard Reset
+Open the __pom.xml__ file of your project and add the plugin configuration. This configuration specifies the Maven plugin you want to create and provides details about its execution.
 
-On the flip side, there's the hard reset. This one's more drastic as it discards the changes from the undone commit entirely. You'd use this if you want to completely remove the last commit, including its changes, from your branch's history.
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>com.javahabit</groupId>
+            <artifactId>dependency-counter-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <executions>
+                <execution>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>count-dependencies</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 
-Here's how you do a hard reset:
-{{< codes javascript >}}
-{{< code >}}
+```
+{{< alert theme="info" dir="ltr" >}}
 
-```javascript
-$ git reset --hard HEAD~1
+## Step 3: Create the Maven Plugin Project
+
+{{< /alert >}}
+
+Now, let's create the Maven plugin project. In your project's root directory, create a new directory named __dependency-counter-plugin__:
+
+```xml
+mkdir dependency-counter-plugin
 
 ```
 
-{{< /code >}}
+{{< alert theme="info" dir="ltr" >}}
 
-{{< /codes >}}
+## Step 4: Implement the Plugin
 
-Be extra cautious with a hard reset because it permanently discards all changes from the last commit.
+{{< /alert >}}
 
-Let's see these resets in action with some code samples.
 
-### Soft Reset
+Inside the dependency-counter-plugin directory, create a Java class that will implement the custom plugin. Let's name it DependencyCounterMojo.java:
 
-Suppose you committed a file called my-file.txt that you now want to uncommit but keep the changes staged.
+```java
+package com.example.dependencycounterplugin;
 
-{{< codes javascript >}}
-{{< code >}}
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
 
-```javascript
-$ git log
-$ git reset --soft HEAD~1
-$ git status
+@Mojo(name = "count-dependencies")
+public class DependencyCounterMojo extends AbstractMojo {
+
+    public void execute() throws MojoExecutionException {
+        // Your logic to count dependencies goes here
+        // For demonstration, we'll just print a message.
+        getLog().info("Counting dependencies...");
+    }
+}
+```
+
+{{< alert theme="info" dir="ltr" >}}
+
+## Step 5: Build the Plugin
+
+{{< /alert >}}
+
+Back in your project's root directory (where the pom.xml is located), build the custom plugin using Maven:
+
+```java
+mvn clean install
 
 ```
 
-{{< /code >}}
+This will compile your plugin and install it in your local Maven repository.
+{{< alert theme="info" dir="ltr" >}}
 
-{{< /codes >}}
+## Step 6: Run the Plugin
 
-Now, the changes from the undone commit are staged, and you can make adjustments.
+{{< /alert >}}
 
-Edit **my-file.txt** to fix any issues.
-{{< codes javascript >}}
-{{< code >}}
 
-```javascript
-$ nano my-file.txt
-```
+To run the custom Maven plugin, you can execute the compile phase (or any other phase where you configured your plugin to run) of your project:
 
-{{< /code >}}
-
-{{< /codes >}}
-
-Commit the changes again.
-{{< codes javascript >}}
-{{< code >}}
-
-```javascript
-$ git commit -m "Your revised commit message here"
+```java
+mvn compile
 
 ```
 
-{{< /code >}}
-{{< /codes >}}
+In this example, we configured the custom plugin to execute during the compile phase.
+{{< alert theme="info" dir="ltr" >}}
 
-### Hard Reset
+## Step 7: Implement Dependency Count Logic
+{{< /alert >}}
 
-Imagine you committed a file called **big-mistake.txt** that you absolutely need to remove from history.
+Inside the DependencyCounterMojo class, you can implement the logic to count project dependencies. For this example, we'll use the ProjectBuilder and ArtifactResolver from the Maven API to get the project's dependencies and count them:
 
-{{< codes javascript >}}
-{{< code >}}
+```java
+import org.apache.maven.model.Dependency;
+import org.apache.maven.model.DependencyManagement;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.project.MavenProject;
+import org.apache.maven.project.ProjectBuildingRequest;
+import org.apache.maven.project.ProjectBuildingResult;
+import org.apache.maven.shared.artifact.ArtifactResolver;
+import org.apache.maven.shared.artifact.DefaultArtifactCoordinate;
+import org.apache.maven.shared.artifact.resolve.ArtifactResolverException;
+import org.codehaus.plexus.PlexusContainer;
+import org.codehaus.plexus.component.repository.exception.ComponentLookupException;
+import org.codehaus.plexus.logging.Logger;
 
-```javascript
-$ git log
-$ git reset --hard HEAD~1
+import java.util.List;
+
+@Mojo(name = "count-dependencies")
+public class DependencyCounterMojo extends AbstractMojo {
+
+    // Define the components we need to interact with Maven's internals
+    private PlexusContainer container;
+    private MavenProject project;
+    private Logger logger;
+    private ArtifactResolver artifactResolver;
+
+    public void execute() throws MojoExecutionException {
+        try {
+            // Fetch the project's dependencies
+            List<Dependency> dependencies = project.getDependencies();
+
+            // Fetch dependencies from dependency management if present
+            DependencyManagement dependencyManagement = project.getDependencyManagement();
+            if (dependencyManagement != null) {
+                dependencies.addAll(dependencyManagement.getDependencies());
+            }
+
+            int dependencyCount = dependencies.size();
+            getLog().info("Total number of dependencies: " + dependencyCount);
+        } catch (Exception e) {
+            throw new MojoExecutionException("Error counting dependencies", e);
+        }
+    }
+}
 
 ```
+{{< alert theme="info" dir="ltr" >}}
+## Step 8: Run the Plugin
+{{< /alert >}}
 
-{{< /code >}}
-{{< /codes >}}
-That's it. The last commit, including all its changes, is gone forever.
+Execute the custom Maven plugin by running the following Maven command in your project's root directory:
 
-## When should you use Soft or Hard Reset?
+```java
+mvn compile
 
-Undoing local Git commits is a valuable skill, and the choice between a **soft reset** and a **hard reset** depends on your specific situation:
+```
+This will execute the __count-dependencies__ goal of your custom plugin during the compile phase, and it will print the total number of dependencies in your project.
 
-- Use a **soft reset** when you want to keep the changes staged and ready for editing.
-- Use a **hard reset** when you want to completely remove the last commit, including its changes.
+Congratulations! You've created a custom Maven plugin to count the number of dependencies in your project. You can further enhance this plugin to perform additional tasks or integrate it into your build process as needed.
 
-Remember, communication is key when collaborating with others. Always inform your team about any changes to the Git history. So, the next time you find yourself in an "Oops" moment, don't worry. You've got the Git reset tools at your disposal to make things right.
-
-Happy coding!
+Happy Coding!
