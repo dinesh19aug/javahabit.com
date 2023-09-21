@@ -6,7 +6,7 @@ type: post
 url: /how-to-undo-local-git-commits-soft-vs-hard-reset
 image: "/resources/img/gitopps.png"
 keywords:
-  - Git reset commands
+  - Git reset  commands
   - Undo Git commit
   - Soft reset vs. hard reset
   - Git commit management
