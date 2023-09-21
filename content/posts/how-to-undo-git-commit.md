@@ -4,7 +4,7 @@ date: 2023-09-20T20:58:19-04:00
 image: "/resources/img/gitreset/gitopps.jpeg"
 author: Dinesh Arora
 type: post
-url: /2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/
+url: /how-to-undo-local-git-commits-soft-vs-hard-reset
 keywords:
   - Git reset commands
   - Undo Git commit
