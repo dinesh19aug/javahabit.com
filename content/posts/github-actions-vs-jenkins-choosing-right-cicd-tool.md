@@ -4,6 +4,7 @@ date: 2023-10-12T13:28:08-05:00
 type: post
 url: /jenkins-vs-github-actions-which-cicd-tool-is-right
 image: "/resources/img/github-vs-jenkins.jpeg"
+meta_image: "/resources/img/github-vs-jenkins.jpeg"
 keywords:
   - Jenkins
   - Github

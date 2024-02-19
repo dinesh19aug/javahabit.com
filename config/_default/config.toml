@@ -1,7 +1,7 @@
 baseURL = "/"
 title = "A Morsel Of Code - One Byte At A Time"
 theme = "zzo"
-
+viewportSize = "widest"
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 hasCJKLanguage = false

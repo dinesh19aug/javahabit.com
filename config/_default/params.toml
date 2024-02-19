@@ -55,7 +55,7 @@ sidebarPosition = "right"
 
 # footer
 #showPoweredBy = true
-showFeedLinks = false
+showFeedLinks = true
 showSocialLinks = true
 enableLangChange = false
 enableThemeChange = true
@@ -104,10 +104,10 @@ commento = false
   stack-overflow = "https://stackoverflow.com/users/1172194/dinesh-arora"
   instagram = ""
   google-plus = ""
-  youtube = ""
+  youtube = "https://www.youtube.com/@coding-with-danny"
   medium = ""
   tumblr = ""
-  linkedin = ""
+  linkedin = "https://www.linkedin.com/in/dinesharora"
   pinterest = ""
   stack-exchange = ""
   telegram = ""
