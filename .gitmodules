@@ -2,3 +2,6 @@
 	path = dinesh19aug.github.io
 	url = git@github.com:dinesh19aug/dinesh19aug.github.io
 	branch = master
+[submodule "themes/lightbi-hugo"]
+	path = themes/lightbi-hugo
+	url = https://github.com/binokochumolvarghese/lightbi-hugo

@@ -4,7 +4,7 @@ date: 2023-09-20T23:31:00-04:00
 author: Dinesh Arora
 type: post
 url: /maven-create-custom-maven-plugin
-image: "/resources/img/maven-plugin.jpg"
+image: "/resources/img/maven-plugin.jpeg"
 
 keywords:
   - Maven plugin development
